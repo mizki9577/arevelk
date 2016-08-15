@@ -1,5 +1,6 @@
 // @flow
 import math from 'mathjs'
+import { pullAllWith } from 'lodash'
 
 import AbstractPolygon from './AbstractPolygon'
 import Triangle from './Triangle'
@@ -25,19 +26,44 @@ class Polygon extends AbstractPolygon {
     points.unshift(...this.vertices)
 
     for (let point of points) {
-      console.log(`point: [${point[0]}, ${point[1]}]`)
-      for (let [it, triangle] of triangles.entries()) {
-        console.log(`it: ${it}`)
-        console.log(`triangle: ${JSON.stringify(triangle.vertices)}`)
-        if (!triangle.isContain(point)) continue
-        console.log('triangle contains point')
-        triangles.splice(it, 1)
-        for (let edge of triangle.edges) {
-          triangles.push(Triangle.createFromPointAndEdge(point, edge))
+      console.log(`point: ${point}`)
+      console.log(triangles.map(t => t.vertices))
+      const bad_triangles = []
+
+      for (const triangle of triangles) {
+        if (triangle.isContainInCircumcircle(point)) {
+          bad_triangles.push(triangle)
         }
-        break
+      }
+
+      const polygon = []
+      for (const bad_triangle of bad_triangles) {
+        for (const bad_edge of bad_triangle.edges) {
+          let edge_is_shared = false
+
+          for (const other_bad_triangle of bad_triangles) {
+            if (bad_triangle.isEqual(other_bad_triangle)) continue
+
+            if (other_bad_triangle.hasEdge(bad_edge)) {
+              edge_is_shared = true
+              break
+            }
+          }
+
+          if (!edge_is_shared) {
+            polygon.push(bad_edge)
+          }
+        }
+      }
+
+      pullAllWith(triangles, bad_triangles, (a, b) => a.isEqual(b))
+
+      for (const edge of polygon) {
+        triangles.push(Triangle.createFromPointAndEdge(point, edge))
       }
     }
+
+    pullAllWith(triangles, super_triangle.vertices, (t, v) => t.hasVertex(v))
 
     return triangles
   }

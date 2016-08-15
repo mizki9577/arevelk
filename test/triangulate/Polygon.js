@@ -23,7 +23,7 @@ describe('Polygon', () => {
   })
 
   describe('#triangulate()', () => {
-    console.log(polygon.triangulate([]).map(t => t.vertices))
+    console.log(polygon.triangulate([[1, 1], [2, 3], [3, 2]]).map(t => '<polygon points="' + t.vertices.map(v => v.join(',')).join(' ') + '" />').join('\n'))
   })
 })
 

@@ -8,4 +8,9 @@ declare module 'mathjs' {
   declare function subtract(x: number[], y: number[]): number[];
 }
 
+declare module 'lodash' {
+  declare function isEqual(a: any, b: any): bool;
+  declare function pullAllWith(a: any, b: any[], c: (l: any, r: any) => bool): any;
+}
+
 // vim: set ts=2 sw=2 et:

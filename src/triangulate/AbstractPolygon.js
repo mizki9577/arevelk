@@ -1,5 +1,6 @@
 // @flow
 import math from 'mathjs'
+import { isEqual, sortBy } from 'lodash'
 
 const vertices = new WeakMap()
 const edges = new WeakMap()
@@ -35,6 +36,10 @@ class AbstractPolygon {
     return edges.get(this)
   }
 
+  isEqual(other: AbstractPolygon) {
+    return isEqual(sortBy(this.vertices), sortBy(other.vertices))
+  }
+
   getCenter(): Point {
     return math.divide(
       this.vertices.reduce((prev, curr) => math.add(prev, curr)),
@@ -42,7 +47,21 @@ class AbstractPolygon {
     )
   }
 
-  triangulate() {
+  hasVertex(target: Point) {
+    return this.vertices.find(v => isEqual(v, target)) !== undefined
+  }
+
+  hasEdge(target: Edge) {
+    const copied_target = [target[0], target[1]]
+    for (const edge of this.edges) {
+      if (isEqual(edge, target) || isEqual(edge, target.reverse())) {
+        return true
+      }
+    }
+    return false
+  }
+
+  triangulate(...params: any) {
     throw '循環依存回避のつもりだったけど本当にひどくてつらい'
   }
 }
