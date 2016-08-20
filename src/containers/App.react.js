@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Container } from 'flux/utils'
+import { Grid, Row, Navbar, Jumbotron, Panel, Button } from 'react-bootstrap'
+
+import ControlPanel from '../components/ControlPanel.react'
 
 import appStore from '../stores/appStore'
 
@@ -14,7 +17,30 @@ class App extends Component {
 
   render() {
     return (
-      <div />
+      <div>
+        <Navbar>
+          <Navbar.Header>
+            <Navbar.Brand>Arevelk</Navbar.Brand>
+          </Navbar.Header>
+        </Navbar>
+
+        <Grid>
+          <Row>
+            <Jumbotron>
+            </Jumbotron>
+          </Row>
+
+          <Row>
+            <Panel>
+              <Button bsStyle="danger">Reset</Button>
+            </Panel>
+          </Row>
+
+          <Row>
+            <ControlPanel />
+          </Row>
+        </Grid>
+      </div>
     )
   }
 }

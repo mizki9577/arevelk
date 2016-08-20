@@ -60,10 +60,6 @@ class AbstractPolygon {
     }
     return false
   }
-
-  triangulate(...params: any) {
-    throw '循環依存回避のつもりだったけど本当にひどくてつらい'
-  }
 }
 
 export default AbstractPolygon

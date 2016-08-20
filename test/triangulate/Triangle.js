@@ -1,5 +1,5 @@
 import assert from 'assert'
-import Triangle from '../../src/triangulate/Triangle'
+import Triangle from '../../src/Triangle'
 
 describe('Triangle', () => {
   const triangle = new Triangle([0, 0], [2, 4], [4, 0])

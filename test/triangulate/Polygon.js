@@ -1,5 +1,5 @@
 import assert from 'assert'
-import Polygon from '../../src/triangulate/Polygon'
+import Polygon from '../../src/Polygon'
 
 describe('Polygon', () => {
   const polygon = new Polygon([[4, 4], [4, 0], [0, 0], [0, 4]])
