@@ -23,7 +23,20 @@ describe('Polygon', () => {
   })
 
   describe('#triangulate()', () => {
-    console.log(polygon.triangulate([[1, 1], [2, 3], [3, 2]]).map(t => '<polygon points="' + t.vertices.map(v => v.join(',')).join(' ') + '" />').join('\n'))
+    it('returns delaunay triangulation of polygon', () => {
+      const actual = polygon.triangulate([[1, 1], [2, 3], [3, 2]]).map(t => t.vertices)
+      const expected = [
+      [[0, 0], [4, 0], [1, 1]],
+        [[0, 0], [1, 1], [0, 4]],
+        [[2, 3], [4, 4], [0, 4]],
+        [[1, 1], [2, 3], [0, 4]],
+        [[4, 0], [3, 2], [1, 1]],
+        [[1, 1], [3, 2], [2, 3]],
+        [[4, 0], [4, 4], [3, 2]],
+        [[3, 2], [4, 4], [2, 3]],
+      ]
+      assert.deepEqual(actual, expected)
+    })
   })
 })
 
