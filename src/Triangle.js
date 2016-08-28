@@ -1,9 +1,9 @@
 // @flow
 import math from 'mathjs'
 
-import AbstractPolygon from './AbstractPolygon'
+import Polygon from './Polygon'
 
-class Triangle extends AbstractPolygon {
+class Triangle extends Polygon {
   constructor(p1: Point, p2: Point, p3: Point) {
     super([p1, p2, p3])
   }

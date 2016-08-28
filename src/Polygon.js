@@ -1,70 +1,65 @@
 // @flow
 import math from 'mathjs'
-import { pullAllWith } from 'lodash'
+import { isEqual, sortBy } from 'lodash'
 
-import AbstractPolygon from './AbstractPolygon'
-import Triangle from './Triangle'
+const vertices = new WeakMap()
+const edges = new WeakMap()
 
-class Polygon extends AbstractPolygon {
-  triangulate(points: Point[]) {
-    const triangles = []
-    const super_triangle = createSuperTriangle(this.vertices)
-    triangles.push(super_triangle)
-    points.unshift(...this.vertices)
+class Polygon {
+  constructor(_vertices: Point[]) {
+    vertices.set(this, _vertices)
 
-    for (let point of points) {
-      const bad_triangles = []
+    // sort vertices counterclockwise
+    const center = this.getCenter()
+    this.vertices.sort((a, b) => {
+      const angle_a = math.atan2(a[1] - center[1], a[0] - center[0])
+      const angle_b = math.atan2(b[1] - center[1], b[0] - center[0])
+      if (angle_a < angle_b) return -1
+      if (angle_a > angle_b) return  1
+      return 0
+    })
 
-      for (const triangle of triangles) {
-        if (triangle.isContainInCircumcircle(point)) {
-          bad_triangles.push(triangle)
-        }
-      }
+    // compute edges
+    edges.set(this, [])
+    let i
+    for (i = 0; i < this.vertices.length - 1; ++i) {
+      this.edges.push([this.vertices[i], this.vertices[i + 1]])
+    }
+    this.edges.push([this.vertices[i], this.vertices[0]])
+  }
 
-      const polygon = []
-      for (const bad_triangle of bad_triangles) {
-        for (const bad_edge of bad_triangle.edges) {
-          let edge_is_shared = false
+  get vertices(): Point[] {
+    return vertices.get(this)
+  }
 
-          for (const other_bad_triangle of bad_triangles) {
-            if (bad_triangle.isEqual(other_bad_triangle)) continue
+  get edges(): Edge[] {
+    return edges.get(this)
+  }
 
-            if (other_bad_triangle.hasEdge(bad_edge)) {
-              edge_is_shared = true
-              break
-            }
-          }
+  isEqual(other: Polygon) {
+    return isEqual(sortBy(this.vertices), sortBy(other.vertices))
+  }
 
-          if (!edge_is_shared) {
-            polygon.push(bad_edge)
-          }
-        }
-      }
+  getCenter(): Point {
+    return math.divide(
+      this.vertices.reduce((prev, curr) => math.add(prev, curr)),
+      this.vertices.length
+    )
+  }
 
-      pullAllWith(triangles, bad_triangles, (a, b) => a.isEqual(b))
+  hasVertex(target: Point) {
+    return this.vertices.find(v => isEqual(v, target)) !== undefined
+  }
 
-      for (const edge of polygon) {
-        triangles.push(Triangle.createFromPointAndEdge(point, edge))
+  hasEdge(target: Edge) {
+    const copied_target = [target[0], target[1]]
+    for (const edge of this.edges) {
+      if (isEqual(edge, target) || isEqual(edge, target.reverse())) {
+        return true
       }
     }
-
-    pullAllWith(triangles, super_triangle.vertices, (t, v) => t.hasVertex(v))
-
-    return triangles
+    return false
   }
-}
-
-const createSuperTriangle = (points: Point[]) => {
-  const max_x = math.max(...points.map(p => p[0]))
-  const max_y = math.max(...points.map(p => p[1]))
-  const min_x = math.min(...points.map(p => p[0]))
-  const min_y = math.min(...points.map(p => p[1]))
-
-  // create a isosceles right triangle
-  const p1 = [min_x - 1    , min_y - 1]      // bottom left
-  const p2 = [max_x * 2 + 2, min_y - 1]      // bottom right
-  const p3 = [min_x - 1    , max_y * 2 + 2]  // top left
-  return new Triangle(p1, p2, p3)
 }
 
 export default Polygon
