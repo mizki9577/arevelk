@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import App from './containers/App.react'
+import App from './components/App.react'
 
 document.addEventListener('DOMContentLoaded', () => {
   render(<App />, document.getElementById('app'))
