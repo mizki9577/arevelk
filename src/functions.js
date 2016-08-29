@@ -72,7 +72,7 @@ export const createRandomPolygon = (n_vertices: number, ave_radius: number, irre
   let std_angle = 0
   for (let i = 0; i < n_vertices; ++i) {
     std_angle += std_angle_diff
-    const radius = jStat.normal.sample(ave_radius, spikeyness)
+    const radius = jStat.normal.sample(ave_radius, spikeyness * ave_radius)
     const angle = std_angle + std_angle_diff * jStat.uniform.sample(-irregularity, irregularity)
     vertices.push({ radius, angle })
   }
