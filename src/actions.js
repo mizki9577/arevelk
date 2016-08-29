@@ -12,9 +12,10 @@ export const act = {
 
 export const ControlAction = {
   generatePolygon(n_vertices, radius, irregularity, spikeyness) {
+    const polygon = createRandomPolygon(n_vertices, radius, irregularity, spikeyness)
     dispatcher.dispatch({
       type: act.GENERATE_POLYGON,
-      value: createRandomPolygon(n_vertices, radius, irregularity, spikeyness),
+      value: polygon.vertices
     })
   },
 

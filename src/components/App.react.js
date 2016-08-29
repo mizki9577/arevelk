@@ -1,6 +1,7 @@
 import React from 'react'
-import { Grid, Row, Navbar, Jumbotron, Panel, Button } from 'react-bootstrap'
+import { Grid, Row, Navbar, Panel, Button } from 'react-bootstrap'
 
+import Drawer from './Drawer.react'
 import ControlPanel from './ControlPanel.react'
 
 const App = () => (
@@ -12,9 +13,8 @@ const App = () => (
     </Navbar>
 
     <Grid>
-      <Row>
-        <Jumbotron>
-        </Jumbotron>
+      <Row style={{textAlign: 'center'}}>
+        <Drawer />
       </Row>
 
       <Row>

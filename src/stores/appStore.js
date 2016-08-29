@@ -7,11 +7,11 @@ import { act } from '../actions'
 class AppStore extends MapStore {
   getInitialState() {
     return Immutable.Map([
-      ['polygon',        null],
-      ['n_vertices',     3   ],
-      ['radius',         1   ],
-      ['irregularity',   0   ],
-      ['spikeyness',     0   ],
+      ['polygon',       []],
+      ['n_vertices',     3],
+      ['radius',       125],
+      ['irregularity',   0],
+      ['spikeyness',     0],
     ])
   }
 

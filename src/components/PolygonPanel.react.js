@@ -8,7 +8,12 @@ import { act, ControlAction } from '../actions'
 class PolygonPanel extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      n_vertices   : 3,
+      radius       : 32,
+      irregularity : 0,
+      spikeyness   : 0,
+    }
   }
 
   static getStores() {
@@ -56,18 +61,20 @@ class PolygonPanel extends Component {
 
           <FormGroup>
             <Col sm={2}><ControlLabel>Standard Radius</ControlLabel></Col>
-            <Col sm={2}><FormControl type="number" value={this.state.radius} onChange={::this.handleRadiusChanged} /></Col>
-            <Col sm={4}><FormControl type="range" value={this.state.radius} onChange={::this.handleRadiusChanged} /></Col>
+            <Col sm={4}><FormControl type="range"  min={0} max={250} value={this.state.radius} onChange={::this.handleRadiusChanged} /></Col>
+            <Col sm={2}><FormControl type="number" min={0} max={250} value={this.state.radius} onChange={::this.handleRadiusChanged} /></Col>
           </FormGroup>
 
           <FormGroup>
             <Col sm={2}><ControlLabel>Irregularity</ControlLabel></Col>
-            <Col sm={2}><FormControl type="range" value={this.state.irregularity} onChange={::this.handleIrregularityChanged} /></Col>
+            <Col sm={4}><FormControl type="range"  min={0} max={1} step={0.01} value={this.state.irregularity} onChange={::this.handleIrregularityChanged} /></Col>
+            <Col sm={2}><FormControl type="number" min={0} max={1} step={0.01} value={this.state.irregularity} onChange={::this.handleIrregularityChanged} /></Col>
           </FormGroup>
 
           <FormGroup>
             <Col sm={2}><ControlLabel>Spikeyness</ControlLabel></Col>
-            <Col sm={2}><FormControl type="range" defaultValue={this.state.spikeyness} onChange={::this.handleSpikeynessChanged} /></Col>
+            <Col sm={4}><FormControl type="range"  min={0} max={1} step={0.01} value={this.state.spikeyness} onChange={::this.handleSpikeynessChanged} /></Col>
+            <Col sm={2}><FormControl type="number" min={0} max={1} step={0.01} value={this.state.spikeyness} onChange={::this.handleSpikeynessChanged} /></Col>
           </FormGroup>
 
           <FormGroup>
