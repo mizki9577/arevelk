@@ -21,6 +21,13 @@ describe('Polygon', () => {
       assert.deepEqual(polygon.getCenter(), [2, 2])
     })
   })
+
+  describe('#isContaining()', () => {
+    it('returns whether given point is in its interior', () => {
+      assert.equal(polygon.isContaining([2, 2]), true)
+      assert.equal(polygon.isContaining([5, 5]), false)
+    })
+  })
 })
 
 // vim: set ts=2 sw=2 et:

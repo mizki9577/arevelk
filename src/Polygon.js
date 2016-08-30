@@ -60,6 +60,15 @@ class Polygon {
     }
     return false
   }
+
+  isContaining(p: Point) {
+    const relative_vertices = this.vertices.map(v => math.subtract(v, p))
+    let angle = 0
+    for (const v of relative_vertices) {
+      angle += (math.PI + math.atan2(v[1], v[0]))
+    }
+    return (angle > 6.28)  // almost 2pi
+  }
 }
 
 export default Polygon
