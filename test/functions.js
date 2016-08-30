@@ -1,5 +1,6 @@
 import assert from 'assert'
-import { delaunayTriangulate, createRandomPolygon } from '../src/functions'
+import Polygon from '../src/Polygon'
+import { delaunayTriangulate, createRandomPolygon, generateRandomPoints } from '../src/functions'
 
 describe('delaunayTriangulate()', () => {
   it('returns delaunay triangulation of given points', () => {
@@ -19,6 +20,15 @@ describe('delaunayTriangulate()', () => {
     ]
 
     assert.deepEqual(actual, expected)
+  })
+})
+
+describe('generateRandomPoints()', () => {
+  it('returns random points which satisfies given condition', () => {
+    const polygon = new Polygon([[0, 0], [2, 4], [4, 0]])
+    const points = generateRandomPoints(100, 0, 4, 0, 4, (p => polygon.isContaining(p)))
+    assert.equal(points.length, 100)
+    assert.ok(points.every(p => polygon.isContaining(p)))
   })
 })
 
