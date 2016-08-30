@@ -7,11 +7,13 @@ import { act } from '../actions'
 class AppStore extends MapStore {
   getInitialState() {
     return Immutable.Map([
-      ['polygon',       []],
+      ['polygon',     null],
       ['n_vertices',     3],
       ['radius',       125],
       ['irregularity',   0],
       ['spikeyness',     0],
+      ['numOfPoints',    0],
+      ['points',        []],
     ])
   }
 
@@ -29,8 +31,14 @@ class AppStore extends MapStore {
       case act.CHANGE_SPIKEYNESS:
         return state.set('spikeyness', action.value)
 
+      case act.CHANGE_NUM_OF_POINTS:
+        return state.set('numOfPoints', action.value)
+
       case act.GENERATE_POLYGON:
         return state.set('polygon', action.value)
+
+      case act.GENERATE_POINTS:
+        return state.set('points', action.value)
 
       default:
         return state

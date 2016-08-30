@@ -20,7 +20,7 @@ class PolygonPanel extends Component {
     return [appStore]
   }
 
-  static calculateState(prevState) {
+  static calculateState() {
     return {
       n_vertices   : appStore.get('n_vertices'),
       radius       : appStore.get('radius'),
