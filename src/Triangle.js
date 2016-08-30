@@ -8,21 +8,6 @@ class Triangle extends Polygon {
     super([p1, p2, p3])
   }
 
-  isContain(p4: Point) {
-    const cross = (a, b) => a[0] * b[1] - a[1] * b[0]
-    const [p1, p2, p3] = this.vertices
-    const v12 = math.subtract(p2, p1)
-    const v23 = math.subtract(p3, p2)
-    const v31 = math.subtract(p1, p3)
-    const v14 = math.subtract(p4, p1)
-    const v24 = math.subtract(p4, p2)
-    const v34 = math.subtract(p4, p3)
-    const x1224 = cross(v12, v24) < 0
-    const x2334 = cross(v23, v34) < 0
-    const x3114 = cross(v31, v14) < 0
-    return (x1224 === x2334 && x2334 === x3114)
-  }
-
   isContainInCircumcircle(p4: Point) {
     const [p1, p2, p3] = this.vertices
     return 0 < math.det([

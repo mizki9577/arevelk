@@ -3,13 +3,6 @@ import Triangle from '../src/Triangle'
 
 describe('Triangle', () => {
   const triangle = new Triangle([0, 0], [2, 4], [4, 0])
-
-  describe('#isContain()', () => {
-    it('returns true when the point lies in', () => {
-      const point = [2, 2]
-      assert(triangle.isContain(point))
-    })
-
     it('returns false when the point does not lie in', () => {
       const point = [4, 4]
       assert(!triangle.isContain(point))
