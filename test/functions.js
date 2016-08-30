@@ -26,7 +26,7 @@ describe('delaunayTriangulate()', () => {
 describe('generateRandomPoints()', () => {
   it('returns random points which satisfies given condition', () => {
     const polygon = new Polygon([[0, 0], [2, 4], [4, 0]])
-    const points = generateRandomPoints(100, 0, 4, 0, 4, (p => polygon.isContaining(p)))
+    const points = generateRandomPoints(100, polygon)
     assert.equal(points.length, 100)
     assert.ok(points.every(p => polygon.isContaining(p)))
   })

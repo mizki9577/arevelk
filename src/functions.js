@@ -81,16 +81,21 @@ export const createRandomPolygon = (n_vertices: number, ave_radius: number, irre
   return new Polygon(vertices.map(polarToCartesian))
 }
 
-export const generateRandomPoints = (n_points: number, min_x: number, max_x: number, min_y: number, max_y: number,
-                                     cond: (p: Point) => boolean = (p => true)) => {
+export const generateRandomPoints = (n_points: number, polygon: Polygon) => {
   const result = []
+  const max_x = math.max(polygon.vertices.map(p => p[0]))
+  const max_y = math.max(polygon.vertices.map(p => p[1]))
+  const min_x = math.min(polygon.vertices.map(p => p[0]))
+  const min_y = math.min(polygon.vertices.map(p => p[1]))
+
   for (let i = 0; i < n_points; ++i) {
     let point
     do {
       point = [jStat.uniform.sample(min_x, max_x), jStat.uniform.sample(min_y, max_y)]
-    } while (!cond(point))
+    } while (!polygon.isContaining(point))
     result.push(point)
   }
+
   return result
 }
 

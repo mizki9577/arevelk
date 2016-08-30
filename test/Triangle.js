@@ -3,11 +3,6 @@ import Triangle from '../src/Triangle'
 
 describe('Triangle', () => {
   const triangle = new Triangle([0, 0], [2, 4], [4, 0])
-    it('returns false when the point does not lie in', () => {
-      const point = [4, 4]
-      assert(!triangle.isContain(point))
-    })
-  })
 
   describe('#isContainInCircumcircle()', () => {
     it('returns true when the point lies in the circumcircle', () => {
