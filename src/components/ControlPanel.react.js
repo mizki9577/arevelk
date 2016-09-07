@@ -2,7 +2,7 @@ import React from 'react'
 import { Tabs, Tab } from 'react-bootstrap'
 
 import PolygonPanel from './PolygonPanel.react'
-import PointsPanel from './PointsPanel.react'
+import PointsPanel from './TriangulationPanel.react'
 
 const ControlPanel = () => (
   <Tabs id="controlpanel">
@@ -10,8 +10,8 @@ const ControlPanel = () => (
       <PolygonPanel />
     </Tab>
 
-    <Tab eventKey={2} title="Points">
-      <PointsPanel />
+    <Tab eventKey={2} title="Triangulation">
+      <TriangulationPanel />
     </Tab>
 
     <Tab eventKey={3} title="Dividing">

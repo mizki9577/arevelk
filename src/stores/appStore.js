@@ -13,7 +13,7 @@ class AppStore extends MapStore {
       ['irregularity',   0],
       ['spikeyness',     0],
       ['numOfPoints',    0],
-      ['points',        []],
+      ['triangles',     []],
     ])
   }
 
@@ -37,8 +37,8 @@ class AppStore extends MapStore {
       case act.GENERATE_POLYGON:
         return state.set('polygon', action.value)
 
-      case act.GENERATE_POINTS:
-        return state.set('points', action.value)
+      case act.TRIANGULATE:
+        return state.set('triangles', action.value)
 
       default:
         return state

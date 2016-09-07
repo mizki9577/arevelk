@@ -1,6 +1,6 @@
 import dispatcher from './dispatcher'
 
-import { createRandomPolygon, generateRandomPoints } from './functions'
+import { createRandomPolygon, generateRandomPoints, delaunayTriangulate } from './functions'
 
 export const act = {
   CHANGE_NUM_OF_VERTICES : 'CHANGE_NUM_OF_VERTICES',
@@ -9,7 +9,7 @@ export const act = {
   CHANGE_SPIKEYNESS      : 'CHANGE_SPIKEYNESS',
   CHANGE_NUM_OF_POINTS   : 'CHANGE_NUM_OF_POINTS',
   GENERATE_POLYGON       : 'GENERATE_POLYGON',
-  GENERATE_POINTS        : 'GENERATE_POINTS',
+  TRIANGULATE            : 'TRIANGULATE',
 }
 
 export const ControlAction = {
@@ -21,11 +21,12 @@ export const ControlAction = {
     })
   },
 
-  generatePoints(n_points, polygon) {
+  triangulate(n_points, polygon) {
     const points = generateRandomPoints(n_points, polygon)
+    const triangles = delaunayTriangulate(points.concat(polygon.vertices))
     dispatcher.dispatch({
-      type: act.GENERATE_POINTS,
-      value: points,
+      type: act.TRIANGULATE,
+      value: triangles,
     })
   },
 

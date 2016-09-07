@@ -30,7 +30,7 @@ class PointsPanel extends Component {
   }
 
   handleGeneratePoints(ev) {
-    ControlAction.generatePoints(this.state.numOfPoints, this.state.polygon)
+    ControlAction.triangulate(this.state.numOfPoints, this.state.polygon)
   }
 
   render() {

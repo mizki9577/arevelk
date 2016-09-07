@@ -9,7 +9,7 @@ class Drawer extends Component {
     super(props)
     this.state = {
       polygon: null,
-      points : [],
+      triangles : [],
     }
   }
 
@@ -19,8 +19,8 @@ class Drawer extends Component {
 
   static calculateState(prevState) {
     return {
-      polygon: appStore.get('polygon'),
-      points : appStore.get('points'),
+      polygon  : appStore.get('polygon'),
+      triangles: appStore.get('triangles'),
     }
   }
 
@@ -29,7 +29,7 @@ class Drawer extends Component {
     if (this.state.polygon !== null) {
       children.push(<polygon key="root" points={this.state.polygon.vertices.map(v => v.join(',')).join(' ')} />)
     }
-    children.push(...this.state.points.map(p => <circle r={1} cx={p[0]} cy={p[1]} />))
+    children.push(...this.state.triangles.map(t => <polygon points={t.vertices.map(v => v.join(',')).join(' ')} />))
 
     return (
       <svg width={500} height={500} viewBox="-250 -250 500 500" style={{fill: 'none', stroke: 'black'}}>
