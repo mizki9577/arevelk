@@ -62,12 +62,18 @@ class Polygon {
   }
 
   isContaining(p: Point) {
-    const relative_vertices = this.vertices.map(v => math.subtract(v, p))
-    let angle = 0
-    for (const v of relative_vertices) {
-      angle += (math.PI + math.atan2(v[1], v[0]))
+    let cn = 0
+
+    for (let [begin, end] of this.edges) {
+      if ((begin[1] <= p[1] && p[1] < end[1]) || (end[1] <= p[1] && p[1] < begin[1])) {
+        const m = (end[0] - begin[0]) / (end[1] - begin[1])
+        if (p[0] < (p[1] - begin[1]) * m + begin[0]) {
+          ++cn
+        }
+      }
     }
-    return (angle > 6.28)  // almost 2pi
+
+    return cn % 2 === 1
   }
 }
 
