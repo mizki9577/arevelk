@@ -2,7 +2,7 @@ import React from 'react'
 import { Tabs, Tab } from 'react-bootstrap'
 
 import PolygonPanel from './PolygonPanel.react'
-import PointsPanel from './TriangulationPanel.react'
+import TriangulationPanel from './TriangulationPanel.react'
 
 const ControlPanel = () => (
   <Tabs id="controlpanel">

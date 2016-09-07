@@ -1,14 +1,14 @@
 export default {
   entry: './src/index.js',
   output: {
-    path: './public/',
+    path: './',
     filename: 'bundle.js',
   },
 
   devtool: '#inline-source-map',
 
   devServer: {
-    contentBase: './public',
+    contentBase: './',
   },
 
   module: {
