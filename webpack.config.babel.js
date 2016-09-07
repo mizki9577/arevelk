@@ -3,9 +3,10 @@ export default {
   output: {
     path: './',
     filename: 'bundle.js',
+    sourceMapFilename: '[file].map',
   },
 
-  devtool: '#inline-source-map',
+  devtool: 'source-map',
 
   devServer: {
     contentBase: './',
