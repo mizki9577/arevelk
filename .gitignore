@@ -3,3 +3,5 @@ Session.vim
 
 /node_modules/
 /public/bundle.js
+/coverage/
+/.nyc_output/
