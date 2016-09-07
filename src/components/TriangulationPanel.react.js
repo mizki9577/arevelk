@@ -5,7 +5,7 @@ import { Col, Panel, Button, Form, FormGroup, FormControl, ControlLabel } from '
 import appStore from '../stores/appStore'
 import { act, ControlAction } from '../actions'
 
-class PointsPanel extends Component {
+class TriangulationPanel extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -52,6 +52,6 @@ class PointsPanel extends Component {
   }
 }
 
-export default Container.create(PointsPanel)
+export default Container.create(TriangulationPanel)
 
 // vim: set ts=2 sw=2 et:
