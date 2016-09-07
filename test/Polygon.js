@@ -25,7 +25,9 @@ describe('Polygon', () => {
   describe('#isContaining()', () => {
     it('returns whether given point is in its interior', () => {
       assert.equal(polygon.isContaining([2, 2]), true)
+      assert.equal(polygon.isContaining([3, 3]), true)
       assert.equal(polygon.isContaining([5, 5]), false)
+      assert.equal(polygon.isContaining([-1, -1]), false)
     })
   })
 })
