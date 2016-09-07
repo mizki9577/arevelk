@@ -22,6 +22,28 @@ describe('Polygon', () => {
     })
   })
 
+  describe('#hasEdge()', () => {
+    it('returns whether polygon has given edge', () => {
+      assert.ok(polygon.hasEdge([[0, 0], [4, 0]]))
+      assert.ok(polygon.hasEdge([[4, 0], [4, 4]]))
+      assert.ok(polygon.hasEdge([[4, 4], [0, 4]]))
+      assert.ok(polygon.hasEdge([[0, 4], [0, 0]]))
+      assert.ok(polygon.hasEdge([[4, 0], [0, 0]]))
+      assert.ok(polygon.hasEdge([[4, 4], [4, 0]]))
+      assert.ok(polygon.hasEdge([[0, 4], [4, 4]]))
+      assert.ok(polygon.hasEdge([[0, 0], [0, 4]]))
+
+      assert.ok(!polygon.hasEdge([[1, 1], [4, 1]]))
+      assert.ok(!polygon.hasEdge([[4, 1], [4, 4]]))
+      assert.ok(!polygon.hasEdge([[4, 4], [1, 4]]))
+      assert.ok(!polygon.hasEdge([[1, 4], [1, 1]]))
+      assert.ok(!polygon.hasEdge([[3, 0], [0, 0]]))
+      assert.ok(!polygon.hasEdge([[3, 3], [3, 0]]))
+      assert.ok(!polygon.hasEdge([[0, 3], [3, 3]]))
+      assert.ok(!polygon.hasEdge([[0, 0], [0, 3]]))
+    })
+  })
+
   describe('#isContaining()', () => {
     it('returns whether given point is in its interior', () => {
       assert.equal(polygon.isContaining([2, 2]), true)
