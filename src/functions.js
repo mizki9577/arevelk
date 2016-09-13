@@ -2,16 +2,17 @@
 import math from 'mathjs'
 import { jStat } from 'jStat'
 import { pullAllWith } from 'lodash'
+import Immutable from 'immutable'
 
 import Polygon from './Polygon'
 import Triangle from './Triangle'
 
 export const delaunayTriangulate = (points: Point[]) => {
   const createSuperTriangle = (points: Point[]) => {
-    const max_x = math.max(...points.map(p => p[0]))
-    const max_y = math.max(...points.map(p => p[1]))
-    const min_x = math.min(...points.map(p => p[0]))
-    const min_y = math.min(...points.map(p => p[1]))
+    const max_x = math.max(points.map(p => p[0]))
+    const max_y = math.max(points.map(p => p[1]))
+    const min_x = math.min(points.map(p => p[0]))
+    const min_y = math.min(points.map(p => p[1]))
 
     // create a isosceles right triangle
     const p1 = [min_x - 1    , min_y - 1]      // bottom left
@@ -72,7 +73,7 @@ export const createRandomPolygon = (n_vertices: number, ave_radius: number, irre
   let std_angle = 0
   for (let i = 0; i < n_vertices; ++i) {
     std_angle += std_angle_diff
-    const radius = jStat.normal.sample(ave_radius, spikeyness * ave_radius)
+    const radius = ave_radius * jStat.normal.sample(1, spikeyness)
     const angle = std_angle + std_angle_diff * jStat.uniform.sample(-irregularity, irregularity)
     vertices.push({ radius, angle })
   }
@@ -98,5 +99,7 @@ export const generateRandomPoints = (n_points: number, polygon: Polygon) => {
 
   return result
 }
+
+export const generateRandomPoint = (min_x: number, max_x: number, min_y: number, max_y: number): Point => [math.random(min_x, max_x), math.random(min_y, max_y)]
 
 // vim: set ts=2 sw=2 et:

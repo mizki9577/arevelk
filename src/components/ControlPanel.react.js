@@ -1,27 +1,41 @@
-import React from 'react'
-import { Tabs, Tab } from 'react-bootstrap'
+import React, { Component } from 'react'
+import { Panel, Form, FormGroup, Col, ControlLabel, FormControl } from 'react-bootstrap'
+import { Container } from 'flux/utils'
 
-import PolygonPanel from './PolygonPanel.react'
-import TriangulationPanel from './TriangulationPanel.react'
+import appStore from '../stores/appStore'
+import { act, ControlAction } from '../actions'
 
-const ControlPanel = () => (
-  <Tabs id="controlpanel">
-    <Tab eventKey={1} title="Polygon">
-      <PolygonPanel />
-    </Tab>
+class ControlPanel extends Component {
+  static getStores() {
+    return [appStore]
+  }
 
-    <Tab eventKey={2} title="Triangulation">
-      <TriangulationPanel />
-    </Tab>
+  static calculateState() {
+    return {
+      numOfPoints: appStore.get('numOfPoints'),
+    }
+  }
 
-    <Tab eventKey={3} title="Dividing">
-    </Tab>
+  handleNumOfPointsChanged(ev) {
+    ControlAction.changeNumOfPoints(ev.target.value)
+  }
 
-    <Tab eventKey={4} title="Annealing">
-    </Tab>
-  </Tabs>
-)
+  render() {
+    return (
+      <Panel>
+        <Form horizontal>
+          <FormGroup>
+            <Col componentClass={ControlLabel} sm={2}>Number of points</Col>
+            <Col sm={4}>
+              <FormControl type="number" value={this.state.numOfPoints} onChange={::this.handleNumOfPointsChanged} />
+            </Col>
+          </FormGroup>
+        </Form>
+      </Panel>
+    )
+  }
+}
 
-export default ControlPanel
+export default Container.create(ControlPanel)
 
 // vim: set ts=2 sw=2 et:

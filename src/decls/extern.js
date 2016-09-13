@@ -5,9 +5,12 @@ declare module 'mathjs' {
   declare function divide(x: number[], y: number): number[];
   declare function max(...xs: number[]): number;
   declare function min(...xs: number[]): number;
+  declare function max(xs: number[]): number;
+  declare function min(xs: number[]): number;
   declare function subtract(x: number[], y: number[]): number[];
   declare function sin(theta: number): number;
   declare function cos(theta: number): number;
+  declare function random(min: number, max: number): number;
 
   declare var PI: number;
 }
@@ -27,6 +30,10 @@ declare module 'jStat' {
       sample(a: number, b: number): number;
     };
   };
+}
+
+declare module 'immutable' {
+  declare var exports: any;
 }
 
 // vim: set ts=2 sw=2 et:

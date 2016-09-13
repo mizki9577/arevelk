@@ -1,3 +1,5 @@
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
+
 export default {
   entry: './src/index.js',
   output: {
@@ -21,6 +23,10 @@ export default {
       },
     ],
   },
+
+  plugins: [
+    new LodashModuleReplacementPlugin(),
+  ]
 }
 
 // vim: set ts=2 sw=2 et:

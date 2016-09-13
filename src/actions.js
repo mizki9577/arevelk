@@ -1,69 +1,33 @@
+import { times } from 'lodash'
+import { List } from 'immutable'
 import dispatcher from './dispatcher'
+import appStore from './stores/appStore'
 
-import { createRandomPolygon, generateRandomPoints, delaunayTriangulate } from './functions'
+import { createRandomPolygon, generateRandomPoints, delaunayTriangulate, generateRandomPoint } from './functions'
 
 export const act = {
-  CHANGE_NUM_OF_VERTICES : 'CHANGE_NUM_OF_VERTICES',
-  CHANGE_RADIUS          : 'CHANGE_RADIUS',
-  CHANGE_IRREGULARITY    : 'CHANGE_IRREGULARITY',
-  CHANGE_SPIKEYNESS      : 'CHANGE_SPIKEYNESS',
-  CHANGE_NUM_OF_POINTS   : 'CHANGE_NUM_OF_POINTS',
-  GENERATE_POLYGON       : 'GENERATE_POLYGON',
-  TRIANGULATE            : 'TRIANGULATE',
+  INCREASE_NUM_OF_POINTS   : 'INCREASE_NUM_OF_POINTS',
+  DECREASE_NUM_OF_POINTS   : 'DECREASE_NUM_OF_POINTS',
 }
 
-export const ControlAction = {
-  generatePolygon(n_vertices, radius, irregularity, spikeyness) {
-    const polygon = createRandomPolygon(n_vertices, radius, irregularity, spikeyness)
-    dispatcher.dispatch({
-      type: act.GENERATE_POLYGON,
-      value: polygon
-    })
-  },
+export class ControlAction {
+  static changeNumOfPoints(numOfPoints) {
+    let points = appStore.get('points')
 
-  triangulate(n_points, polygon) {
-    const points = generateRandomPoints(n_points, polygon)
-    const triangles = delaunayTriangulate(points.concat(polygon.vertices))
-    dispatcher.dispatch({
-      type: act.TRIANGULATE,
-      value: triangles,
-    })
-  },
+    if (points.size < numOfPoints) {
+      points = points.push(...times(numOfPoints - points.size, () => List(generateRandomPoint(-250, 250, -250, 250))))
 
-  changeNumOfVertices(value) {
-    dispatcher.dispatch({
-      type: act.CHANGE_NUM_OF_VERTICES,
-      value,
-    })
-  },
-
-  changeRadius(value) {
-    dispatcher.dispatch({
-      type: act.CHANGE_RADIUS,
-      value,
-    })
-  },
-
-  changeIrregularity(value) {
-    dispatcher.dispatch({
-      type: act.CHANGE_IRREGULARITY,
-      value,
-    })
-  },
-
-  changeSpikeyness(value) {
-    dispatcher.dispatch({
-      type: act.CHANGE_SPIKEYNESS,
-      value,
-    })
-  },
-
-  changeNumOfPoints(value) {
-    dispatcher.dispatch({
-      type: act.CHANGE_NUM_OF_POINTS,
-      value,
-    })
-  },
+      dispatcher.dispatch({
+        type: act.INCREASE_NUM_OF_POINTS,
+        numOfPoints, points,
+      })
+    } else {
+      dispatcher.dispatch({
+        type: act.DECREASE_NUM_OF_POINTS,
+        numOfPoints,
+      })
+    }
+  }
 }
 
 // vim: set ts=2 sw=2 et:

@@ -6,39 +6,20 @@ import { act } from '../actions'
 
 class AppStore extends MapStore {
   getInitialState() {
-    return Immutable.Map([
-      ['polygon',     null],
-      ['n_vertices',     3],
-      ['radius',       125],
-      ['irregularity',   0],
-      ['spikeyness',     0],
-      ['numOfPoints',    0],
-      ['triangles',     []],
-    ])
+    return Immutable.fromJS({
+      numOfPoints: 0,
+      points     : [],
+    })
   }
 
   reduce(state, action) {
     switch (action.type) {
-      case act.CHANGE_NUM_OF_VERTICES:
-        return state.set('n_vertices', action.value)
+      case act.INCREASE_NUM_OF_POINTS:
+        return state.set('numOfPoints', action.numOfPoints)
+                    .set('points',      action.points)
 
-      case act.CHANGE_RADIUS:
-        return state.set('radius', action.value)
-
-      case act.CHANGE_IRREGULARITY:
-        return state.set('irregularity', action.value)
-
-      case act.CHANGE_SPIKEYNESS:
-        return state.set('spikeyness', action.value)
-
-      case act.CHANGE_NUM_OF_POINTS:
-        return state.set('numOfPoints', action.value)
-
-      case act.GENERATE_POLYGON:
-        return state.set('polygon', action.value)
-
-      case act.TRIANGULATE:
-        return state.set('triangles', action.value)
+      case act.DECREASE_NUM_OF_POINTS:
+        return state.set('numOfPoints', action.numOfPoints)
 
       default:
         return state

@@ -5,31 +5,22 @@ import appStore from '../stores/appStore'
 import { act } from '../actions'
 
 class Drawer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      polygon: null,
-      triangles : [],
-    }
-  }
-
   static getStores() {
     return [appStore]
   }
 
   static calculateState(prevState) {
     return {
-      polygon  : appStore.get('polygon'),
-      triangles: appStore.get('triangles'),
+      points     : appStore.get('points'),
+      numOfPoints: appStore.get('numOfPoints'),
     }
   }
 
   render() {
-    const children = []
-    if (this.state.polygon !== null) {
-      children.push(<polygon key="root" points={this.state.polygon.vertices.map(v => v.join(',')).join(' ')} />)
-    }
-    children.push(...this.state.triangles.map(t => <polygon points={t.vertices.map(v => v.join(',')).join(' ')} />))
+    const children = [
+      ...this.state.points.map(p => <circle cx={p.get(0)} cy={p.get(1)} r={1} />)
+                          .take(this.state.numOfPoints)
+    ]
 
     return (
       <svg width={500} height={500} viewBox="-250 -250 500 500" style={{fill: 'none', stroke: 'black'}}>
