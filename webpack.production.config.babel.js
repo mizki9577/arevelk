@@ -1,14 +1,11 @@
+import webpack from 'webpack'
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
+
 export default {
   entry: './src/index.js',
   output: {
-    path: './public',
+    path: './',
     filename: 'bundle.js',
-  },
-
-  devtool: 'inline-source-map',
-
-  devServer: {
-    contentBase: './public',
   },
 
   module: {
@@ -22,6 +19,7 @@ export default {
   },
 
   plugins: [
+    new LodashModuleReplacementPlugin(),
   ]
 }
 
