@@ -1,8 +1,6 @@
 // @flow
 import math from 'mathjs'
-import { jStat } from 'jStat'
 import { pullAllWith } from 'lodash'
-import Immutable from 'immutable'
 
 import Polygon from './Polygon'
 import Triangle from './Triangle'
@@ -64,40 +62,6 @@ export const delaunayTriangulate = (points: Point[]) => {
   pullAllWith(triangles, super_triangle.vertices, (t, v) => t.hasVertex(v))
 
   return triangles
-}
-
-export const createRandomPolygon = (n_vertices: number, ave_radius: number, irregularity: number, spikeyness: number) => {
-  // n_vertices must be >= 3, ave_radius must be > 0, irregularity must be in [0, 1], spikeyness must be >= 0
-  const std_angle_diff = 2 * math.PI / n_vertices
-  const vertices = []
-  let std_angle = 0
-  for (let i = 0; i < n_vertices; ++i) {
-    std_angle += std_angle_diff
-    const radius = ave_radius * jStat.normal.sample(1, spikeyness)
-    const angle = std_angle + std_angle_diff * jStat.uniform.sample(-irregularity, irregularity)
-    vertices.push({ radius, angle })
-  }
-
-  const polarToCartesian = ({ radius, angle }) => [radius * math.cos(angle), radius * math.sin(angle)]
-  return new Polygon(vertices.map(polarToCartesian))
-}
-
-export const generateRandomPoints = (n_points: number, polygon: Polygon) => {
-  const result = []
-  const max_x = math.max(polygon.vertices.map(p => p[0]))
-  const max_y = math.max(polygon.vertices.map(p => p[1]))
-  const min_x = math.min(polygon.vertices.map(p => p[0]))
-  const min_y = math.min(polygon.vertices.map(p => p[1]))
-
-  for (let i = 0; i < n_points; ++i) {
-    let point
-    do {
-      point = [jStat.uniform.sample(min_x, max_x), jStat.uniform.sample(min_y, max_y)]
-    } while (!polygon.isContaining(point))
-    result.push(point)
-  }
-
-  return result
 }
 
 export const generateRandomPoint = (min_x: number, max_x: number, min_y: number, max_y: number): Point => [math.random(min_x, max_x), math.random(min_y, max_y)]
