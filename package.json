@@ -7,7 +7,8 @@
     "test": "nyc --reporter html mocha",
     "eslint": "eslint",
     "webpack": "webpack",
-    "webpack-dev-server": "webpack-dev-server"
+    "webpack-dev-server": "webpack-dev-server",
+    "build": "webpack --config webpack.production.config.babel.js -p --progress"
   },
   "author": "",
   "license": "MIT",

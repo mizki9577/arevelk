@@ -1,8 +1,6 @@
 Session.vim
 *.sw*
-*.map
 
 /node_modules/
-/public/bundle.js
 /coverage/
 /.nyc_output/
