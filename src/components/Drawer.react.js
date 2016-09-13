@@ -19,7 +19,7 @@ class Drawer extends Component {
   render() {
     const children = [
       ...this.state.points.take(this.state.numOfPoints)
-                          .map(p => <circle cx={p.get(0)} cy={p.get(1)} r={1} />)
+                          .map((p, k) => <circle key={k} cx={p.get(0)} cy={p.get(1)} r={1} />)
     ]
 
     return (
