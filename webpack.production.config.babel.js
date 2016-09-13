@@ -1,3 +1,4 @@
+import webpack from 'webpack'
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 
 export default {
@@ -18,6 +19,11 @@ export default {
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
     new LodashModuleReplacementPlugin(),
   ]
 }
