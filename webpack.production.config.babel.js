@@ -1,4 +1,3 @@
-import webpack from 'webpack'
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 
 export default {
