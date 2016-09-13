@@ -3,7 +3,7 @@ import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 export default {
   entry: './src/index.js',
   output: {
-    path: './',
+    path: './public',
     filename: 'bundle.js',
   },
 
