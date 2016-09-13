@@ -2,17 +2,17 @@ import React, { Component } from 'react'
 import { Panel, Form, FormGroup, Col, ControlLabel, FormControl } from 'react-bootstrap'
 import { Container } from 'flux/utils'
 
-import appStore from '../stores/appStore'
+import store from '../store'
 import { act, ControlAction } from '../actions'
 
 class ControlPanel extends Component {
   static getStores() {
-    return [appStore]
+    return [store]
   }
 
   static calculateState() {
     return {
-      numOfPoints: appStore.get('numOfPoints'),
+      numOfPoints: store.get('numOfPoints'),
     }
   }
 

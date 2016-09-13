@@ -1,10 +1,10 @@
 import Immutable from 'immutable'
 import { MapStore } from 'flux/utils'
 
-import dispatcher from '../dispatcher'
-import { act } from '../actions'
+import dispatcher from './dispatcher'
+import { act } from './actions'
 
-class AppStore extends MapStore {
+class Store extends MapStore {
   getInitialState() {
     return Immutable.fromJS({
       numOfPoints: 0,
@@ -27,6 +27,6 @@ class AppStore extends MapStore {
   }
 }
 
-export default new AppStore(dispatcher)
+export default new Store(dispatcher)
 
 // vim: set ts=2 sw=2 et:

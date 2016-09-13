@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import { Container } from 'flux/utils'
 
-import appStore from '../stores/appStore'
+import store from '../store'
 import { act } from '../actions'
 
 class Drawer extends Component {
   static getStores() {
-    return [appStore]
+    return [store]
   }
 
   static calculateState(prevState) {
     return {
-      points     : appStore.get('points'),
-      numOfPoints: appStore.get('numOfPoints'),
+      points     : store.get('points'),
+      numOfPoints: store.get('numOfPoints'),
     }
   }
 

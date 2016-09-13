@@ -1,7 +1,7 @@
 import { times } from 'lodash'
 import { List } from 'immutable'
 import dispatcher from './dispatcher'
-import appStore from './stores/appStore'
+import store from './store'
 
 import { createRandomPolygon, generateRandomPoints, delaunayTriangulate, generateRandomPoint } from './functions'
 
@@ -12,7 +12,7 @@ export const act = {
 
 export class ControlAction {
   static changeNumOfPoints(numOfPoints) {
-    let points = appStore.get('points')
+    let points = store.get('points')
 
     if (points.size < numOfPoints) {
       points = points.push(...times(numOfPoints - points.size, () => List(generateRandomPoint(-250, 250, -250, 250))))
