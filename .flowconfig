@@ -1,10 +1,13 @@
 [ignore]
-.*/node_modules/
+.*/node_modules/fbemitter/.*
+.*/node_modules/fbjs/.*
+.*/node_modules/flux/.*
 
 [include]
 
 [libs]
-./src/decls
+./node_modules/immutable/dist/immutable.js.flow
+./src/decls/
 
 [options]
 unsafe.enable_getters_and_setters=true

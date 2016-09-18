@@ -32,8 +32,4 @@ declare module 'jStat' {
   };
 }
 
-declare module 'immutable' {
-  declare var exports: any;
-}
-
 // vim: set ts=2 sw=2 et:
