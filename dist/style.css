@@ -22,7 +22,7 @@ svg {
     border: thin solid black;
 }
 
-polygon, polyline {
+polygon {
     fill: none;
     stroke: black;
     stroke-width: 0.1;
