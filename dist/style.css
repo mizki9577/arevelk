@@ -22,9 +22,10 @@ svg {
     border: thin solid black;
 }
 
-polygon {
+polygon, polyline {
     fill: none;
     stroke: black;
+    stroke-width: 0.1;
 }
 
 .grid {

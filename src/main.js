@@ -1,5 +1,11 @@
+// @flow
 import React from 'react'
 import ReactDOM from 'react-dom'
+
+import Polygon from './Polygon.js'
+import Edge from './Edge.js'
+
+import { randomChoice } from './utils.js'
 
 class Arevelk extends React.Component {
   constructor(props) {
@@ -9,19 +15,53 @@ class Arevelk extends React.Component {
       isRunning: false,
       width: 101,
       height: 65,
-      numberOfPoints: 8,
+      numberOfSplits: 8,
     }
-    this.state.triangles = this.triangulate(this.state.numberOfPoints)
+    this.state.polygons = this.initalizePolygons(this.state.numberOfSplits)
   }
 
-  split(numberOfPoints) {
-    const points = []
-    for (let x = 0; x < this.state.width; ++x) {
-      points.push({ x, y: 0 }, { x, y: this.state.height - 1 })
+  initalizePolygons(numberOfSplits) {
+    /* Polygon#vertices は必ず時計回りで格納する
+     * したがって Edge#points[1] は [0] よりも時計回りの方向に進んだ側を指す
+     */
+
+    const polygons = [
+      new Polygon([
+        { x:   0, y:  0 },
+        { x: 100, y:  0 },
+        { x: 100, y: 64 },
+        { x:   0, y: 64 },
+      ]),
+    ]
+
+    for (let _ = 0; _ < numberOfSplits; ++_) {
+      const splitting_polygon = randomChoice(polygons, true)
+
+      const edges = splitting_polygon.getEdges()
+      const edge1 = randomChoice(edges, true)
+      const edge2 = randomChoice(edges, true)
+
+      const point1 = randomChoice(edge1.getPointsOnGrids())
+      const point2 = randomChoice(edge2.getPointsOnGrids())
+
+      let i = (splitting_polygon.vertices.indexOf(edge2.points[1]) + 1) % splitting_polygon.vertices.length
+      const polygon1_vertices = [edge1.points[0], point1, point2, edge2.points[1]]
+      while (splitting_polygon.vertices[i] !== edge1.points[0]) {
+        polygon1_vertices.push(splitting_polygon.vertices[i])
+        i = (i + 1) % splitting_polygon.vertices.length
+      }
+
+      let j = (splitting_polygon.vertices.indexOf(edge1.points[1]) + 1) % splitting_polygon.vertices.length
+      const polygon2_vertices = [edge2.points[0], point2, point1, edge1.points[1]]
+      while (splitting_polygon.vertices[j] !== edge1.points[0]) {
+        polygon1_vertices.push(splitting_polygon.vertices[j])
+        j = (j + 1) % splitting_polygon.vertices.length
+      }
+
+      polygons.push(new Polygon(polygon1_vertices), new Polygon(polygon2_vertices))
     }
-    for (let y = 0; y < this.state.width; ++y) {
-      points.push({ x: 0, y }, { x: this.state.width - 1, y })
-    }
+
+    return polygons
   }
 
   handleToggleRunning() {
@@ -29,12 +69,11 @@ class Arevelk extends React.Component {
   }
 
   handleReset() {
-    const triangles = this.triangulate(this.state.numberOfPoints)
-    this.setState({ triangles })
+    this.setState({ polygons: this.initalizePolygons(this.state.numberOfSplits) })
   }
 
   handleNumberOfPointsChange(ev) {
-    this.setState({ numberOfPoints: ev.target.value })
+    this.setState({ numberOfSplits: ev.target.value })
   }
 
   render() {
@@ -42,6 +81,7 @@ class Arevelk extends React.Component {
       <div>
         <svg width={ 800 } height={ 600 } viewBox={ `-1 -1 103 67` }>
           { grid }
+          { this.state.polygons.map((p, i) => <polyline key={ i } points={ p.vertices.map(({ x, y }) => `${ x },${ y }`).join(' ') } />) }
         </svg>
 
         <div className="column">
@@ -50,7 +90,7 @@ class Arevelk extends React.Component {
           </div>
 
           <div className="row">
-            <label>number of points: <input type="number" min={ 0 } max={ 1024 } value={ this.state.numberOfPoints } step={ 1 } onChange={ ev => this.handleNumberOfPointsChange(ev) } /></label>
+            <label>number of points: <input type="number" min={ 0 } max={ 1024 } value={ this.state.numberOfSplits } step={ 1 } onChange={ ev => this.handleNumberOfPointsChange(ev) } /></label>
             <button onClick={ () => this.handleReset() }>reset</button>
           </div>
         </div>

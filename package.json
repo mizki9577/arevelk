@@ -4,8 +4,9 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"http-server dist\" \"rollup -c -w\"",
-    "build": "rollup -c"
+    "start": "concurrently -k \"rollup -c -w\" \"http-server dist\"",
+    "build": "rollup -c",
+    "flow": "flow"
   },
   "author": "Mizki SUZUMORI <mizki9577@gmail.com>",
   "license": "BSD-2-Clause",
@@ -16,6 +17,7 @@
   "devDependencies": {
     "babel-preset-react": "^6.24.1",
     "concurrently": "^3.4.0",
+    "flow-bin": "^0.46.0",
     "http-server": "^0.10.0",
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.7.1",
