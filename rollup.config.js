@@ -20,6 +20,7 @@ export default {
     commonjs(),
 
     babel({
+      babelrc: false,
       presets: [
         'react',
       ],
