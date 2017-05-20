@@ -24,6 +24,9 @@ export default {
       presets: [
         'react',
       ],
+      plugins: [
+        'external-helpers',
+      ],
     }),
   ],
 }
