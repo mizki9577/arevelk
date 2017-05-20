@@ -8,7 +8,7 @@ class Edge {
     this.points = points
   }
 
-  getPointsOnGrids() {
+  getPointsOnGrids(): Point[] {
     const result = []
 
     if (this.points[0].x === this.points[1].x) {

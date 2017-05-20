@@ -20,7 +20,7 @@ class Arevelk extends React.Component {
     this.state.polygons = this.initalizePolygons(this.state.numberOfSplits)
   }
 
-  initalizePolygons(numberOfSplits) {
+  initalizePolygons(numberOfSplits: number): Polygon[] {
     /* Polygon#vertices は必ず時計回りで格納する
      * したがって Edge#points[1] は [0] よりも時計回りの方向に進んだ側を指す
      */

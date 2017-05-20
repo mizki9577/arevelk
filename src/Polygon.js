@@ -9,7 +9,7 @@ class Polygon {
     this.vertices = vertices
   }
 
-  getEdges() {
+  getEdges(): Edge[] {
     const result = []
     const n = this.vertices.length
     for (let i = 0; i < n-1; ++i) {
