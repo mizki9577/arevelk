@@ -50,4 +50,9 @@ test(t => {
   ])
 })
 
+test(t => {
+  const edge = new Edge({ x: 70, y: 3 }, { x: 100, y: 34 })
+  t.deepEqual(edge.getPointsOnGrids(), edge.points)
+})
+
 // vim: set ts=2 sw=2 et:

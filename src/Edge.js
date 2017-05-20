@@ -23,9 +23,12 @@ class Edge {
 
     const { x: begin_x, y: begin_y } = this.points[0].x < this.points[1].x ? this.points[0] : this.points[1]
     const end_x   = Math.max(this.points[0].x, this.points[1].x)
-    const gradient = (this.points[0].y - this.points[1].y) / (this.points[0].x - this.points[1].x)
-    for (let x = begin_x; x <= end_x; ++x) if (Number.isInteger(x * gradient)) {
-      result.push({ x, y: begin_y + x * gradient })
+    const n = end_x - begin_x
+    for (let x = 0; x <= n; ++x) {
+      const y = x * (this.points[0].y - this.points[1].y) / (this.points[0].x - this.points[1].x)
+      if (Number.isInteger(y)) {
+        result.push({ x: x + begin_x, y: y + begin_y })
+      }
     }
     return result
   }

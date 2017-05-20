@@ -47,13 +47,16 @@ class Polygon {
 
     for (let _ = 0; _ < numberOfSplits; ++_) {
       const splitting_polygon = randomChoice(polygons, true)
-
       const edges = splitting_polygon.getEdges()
+
       const edge1 = randomChoice(edges, true)
       const edge2 = randomChoice(edges, true)
 
-      const point1 = randomChoice(edge1.getPointsOnGrids())
-      const point2 = randomChoice(edge2.getPointsOnGrids())
+      const points1 = edge1.getPointsOnGrids()
+      const points2 = edge2.getPointsOnGrids()
+
+      const point1 = randomChoice(points1)
+      const point2 = randomChoice(points2)
 
       polygons.push(...splitting_polygon.split(edge1, point1, edge2, point2))
     }
