@@ -5,26 +5,26 @@ import Edge from '../Edge.js'
 import Point from '../Point.js'
 
 test('#isEqual', t => {
-  const polygon1 = new Polygon([
+  const polygon1 = new Polygon(
     new Point(0, 1),
     new Point(2, 3),
     new Point(4, 5),
-  ])
-  const polygon2 = new Polygon([
+  )
+  const polygon2 = new Polygon(
     new Point(2, 3),
     new Point(4, 5),
     new Point(0, 1),
-  ])
+  )
 
   t.true(polygon1.isEqual(polygon2))
 })
 
 test('#getEdges', t => {
-  const polygon = new Polygon([
+  const polygon = new Polygon(
     new Point(0,  0),
     new Point(4,  2),
     new Point(4, -2),
-  ])
+  )
 
   t.deepEqual(polygon.getEdges(), [
     new Edge(new Point(0,  0), new Point(4,  2)),
@@ -34,12 +34,12 @@ test('#getEdges', t => {
 })
 
 test('#split', t => {
-  const polygon = new Polygon([
+  const polygon = new Polygon(
     new Point(0, 0),
     new Point(8, 0),
     new Point(8, 4),
     new Point(0, 4),
-  ])
+  )
 
   const edges = polygon.getEdges()
   const edge1 = edges[0]  // [new Point(0, 0), new Point(8, 0)]
@@ -49,22 +49,22 @@ test('#split', t => {
 
   t.deepEqual(
     polygon.split(edge1, point1, edge2, point2), [
-      new Polygon([
+      new Polygon(
         new Point(0, 0), new Point(2, 0), new Point(6, 4), new Point(0, 4),
-      ]),
-      new Polygon([
+      ),
+      new Polygon(
         new Point(8, 4), new Point(6, 4), new Point(2, 0), new Point(8, 0)
-      ]),
+      ),
     ])
 })
 
 test('#split', t => {
-  const polygon = new Polygon([
+  const polygon = new Polygon(
     new Point(0, 0),
     new Point(8, 0),
     new Point(8, 4),
     new Point(0, 4),
-  ])
+  )
 
   const edges = polygon.getEdges()
   const edge1 = edges[0]  // [new Point(0, 0), new Point(8, 0)]
@@ -75,25 +75,25 @@ test('#split', t => {
   const result = polygon.split(edge1, point1, edge2, point2)
 
   t.true(
-    result[0].isEqual(new Polygon([
+    result[0].isEqual(new Polygon(
       new Point(0, 0), new Point(8, 2), new Point(8, 4), new Point(0, 4),
-    ]))
+    ))
   )
 
   t.true(
-    result[1].isEqual(new Polygon([
+    result[1].isEqual(new Polygon(
       new Point(8, 0), new Point(8, 2), new Point(0, 0),
-    ]))
+    ))
   )
 })
 
 test('#split', t => {
-  const polygon = new Polygon([
+  const polygon = new Polygon(
     new Point(0, 0),
     new Point(8, 0),
     new Point(8, 4),
     new Point(0, 4),
-  ])
+  )
 
   const edges = polygon.getEdges()
   const edge1 = edges[1]  // [new Point(8, 0), new Point(8, 4)]
@@ -104,15 +104,15 @@ test('#split', t => {
   const result = polygon.split(edge1, point1, edge2, point2)
 
   t.true(
-    result[0].isEqual(new Polygon([
+    result[0].isEqual(new Polygon(
       new Point(8, 0), new Point(8, 2), new Point(0, 0),
-    ]))
+    ))
   )
 
   t.true(
-    result[1].isEqual(new Polygon([
+    result[1].isEqual(new Polygon(
       new Point(0, 4), new Point(0, 0), new Point(8, 2), new Point(8, 4),
-    ]))
+    ))
   )
 })
 

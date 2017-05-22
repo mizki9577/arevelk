@@ -3,21 +3,19 @@ import Point from './Point.js'
 import Edge from './Edge.js'
 import { randomChoice } from './utils.js'
 
-class Polygon {
-  vertices: Point[]
-
-  constructor(vertices: Point[]) {
-    this.vertices = vertices
+class Polygon extends Array {
+  constructor(...vertices: Point[]) {
+    super(...vertices)
   }
 
   isEqual(other: Polygon) {
-    if (this.vertices.length !== other.vertices.length) return false
-    const length = this.vertices.length
+    if (this.length !== other.length) return false
+    const length = this.length
 
     for (let i = 0; i < length; ++i) {
       let matched = true
       for (let j = 0; j < length; ++j) {
-        if (!this.vertices[j].isEqual(other.vertices[(i+j)%length])) {
+        if (!this[j].isEqual(other[(i+j)%length])) {
           matched = false
           break
         }
@@ -32,11 +30,11 @@ class Polygon {
 
   getEdges(): Edge[] {
     const result = []
-    const n = this.vertices.length
+    const n = this.length
     for (let i = 0; i < n-1; ++i) {
-      result.push(new Edge(this.vertices[i], this.vertices[i+1]))
+      result.push(new Edge(this[i], this[i+1]))
     }
-    result.push(new Edge(this.vertices[n-1], this.vertices[0]))
+    result.push(new Edge(this[n-1], this[0]))
     return result
   }
 
@@ -52,12 +50,12 @@ class Polygon {
       polygon1_vertices.splice(-1, 1)
     }
 
-    let i = (this.vertices.indexOf(polygon1_vertices[polygon1_vertices.length-1]) + 1) % this.vertices.length
-    while (!this.vertices[i].isEqual(polygon1_vertices[0])) {
-      if (!polygon1_vertices[polygon1_vertices.length - 1].isEqual(this.vertices[i])) {
-        polygon1_vertices.push(this.vertices[i])
+    let i = (this.indexOf(polygon1_vertices[polygon1_vertices.length-1]) + 1) % this.length
+    while (!this[i].isEqual(polygon1_vertices[0])) {
+      if (!polygon1_vertices[polygon1_vertices.length - 1].isEqual(this[i])) {
+        polygon1_vertices.push(this[i])
       }
-      i = (i + 1) % this.vertices.length
+      i = (i + 1) % this.length
     }
 
     const polygon2_vertices = [edge2.begin, point2, point1, edge1.end]
@@ -71,15 +69,15 @@ class Polygon {
       polygon2_vertices.splice(-1, 1)
     }
 
-    let j = (this.vertices.indexOf(polygon2_vertices[polygon2_vertices.length-1]) + 1) % this.vertices.length
-    while (!this.vertices[j].isEqual(polygon2_vertices[0])) {
-      if (!polygon2_vertices[polygon2_vertices.length - 1].isEqual(this.vertices[j])) {
-        polygon2_vertices.push(this.vertices[j])
+    let j = (this.indexOf(polygon2_vertices[polygon2_vertices.length-1]) + 1) % this.length
+    while (!this[j].isEqual(polygon2_vertices[0])) {
+      if (!polygon2_vertices[polygon2_vertices.length - 1].isEqual(this[j])) {
+        polygon2_vertices.push(this[j])
       }
-      j = (j + 1) % this.vertices.length
+      j = (j + 1) % this.length
     }
 
-    return [new Polygon(polygon1_vertices), new Polygon(polygon2_vertices)]
+    return [new Polygon(...polygon1_vertices), new Polygon(...polygon2_vertices)]
   }
 
   randomSplit(numberOfSplits: number): Polygon[] {
