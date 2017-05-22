@@ -89,7 +89,6 @@ test('#split', t => {
   const point2 = edge2.getPointsOnGrids()[0]  // new Point(0, 0)
 
   const result = polygon.split(edge1, point1, edge2, point2)
-  console.log(result[1])
 
   t.deepEqual(
     result[0],
