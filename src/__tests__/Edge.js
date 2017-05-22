@@ -1,57 +1,58 @@
 // @flow
 import test from 'ava'
 import Edge from '../Edge.js'
+import Point from '../Point.js'
 
 test(t => {
-  const edge = new Edge({ x: 0, y: 0 }, { x: 8, y: 4 })
+  const edge = new Edge(new Point(0, 0), new Point(8, 4))
 
   t.deepEqual(edge.getPointsOnGrids(), [
-    { x: 0, y: 0 },
-    { x: 2, y: 1 },
-    { x: 4, y: 2 },
-    { x: 6, y: 3 },
-    { x: 8, y: 4 },
+    new Point(0, 0),
+    new Point(2, 1),
+    new Point(4, 2),
+    new Point(6, 3),
+    new Point(8, 4),
   ])
 })
 
 test(t => {
-  const edge = new Edge({ x: 0, y: 0 }, { x: 0, y: 4 })
+  const edge = new Edge(new Point(0, 0), new Point(0, 4))
 
   t.deepEqual(edge.getPointsOnGrids(), [
-    { x: 0, y: 0 },
-    { x: 0, y: 1 },
-    { x: 0, y: 2 },
-    { x: 0, y: 3 },
-    { x: 0, y: 4 },
+    new Point(0, 0),
+    new Point(0, 1),
+    new Point(0, 2),
+    new Point(0, 3),
+    new Point(0, 4),
   ])
 })
 
 test(t => {
-  const edge = new Edge({ x: 0, y: 0 }, { x: 4, y: 0 })
+  const edge = new Edge(new Point(0, 0), new Point(4, 0))
 
   t.deepEqual(edge.getPointsOnGrids(), [
-    { x: 0, y: 0 },
-    { x: 1, y: 0 },
-    { x: 2, y: 0 },
-    { x: 3, y: 0 },
-    { x: 4, y: 0 },
+    new Point(0, 0),
+    new Point(1, 0),
+    new Point(2, 0),
+    new Point(3, 0),
+    new Point(4, 0),
   ])
 })
 
 test(t => {
-  const edge = new Edge({ x: 4, y: 8 }, { x: 0, y: 0 })
+  const edge = new Edge(new Point(4, 8), new Point(0, 0))
 
   t.deepEqual(edge.getPointsOnGrids(), [
-    { x: 0, y: 0 },
-    { x: 1, y: 2 },
-    { x: 2, y: 4 },
-    { x: 3, y: 6 },
-    { x: 4, y: 8 },
+    new Point(0, 0),
+    new Point(1, 2),
+    new Point(2, 4),
+    new Point(3, 6),
+    new Point(4, 8),
   ])
 })
 
 test(t => {
-  const edge = new Edge({ x: 70, y: 3 }, { x: 100, y: 34 })
+  const edge = new Edge(new Point(70, 3), new Point(100, 34))
   t.deepEqual(edge.getPointsOnGrids(), edge.points)
 })
 

@@ -1,5 +1,5 @@
 // @flow
-import type { Point } from './Point.js'
+import Point from './Point.js'
 import Edge from './Edge.js'
 import { randomChoice } from './utils.js'
 
@@ -21,21 +21,41 @@ class Polygon {
   }
 
   split(edge1: Edge, point1: Point, edge2: Edge, point2: Point): [Polygon, Polygon] {
-    let i = (this.vertices.indexOf(edge2.points[1]) + 1) % this.vertices.length
     const polygon1_vertices = [edge1.points[0], point1, point2, edge2.points[1]]
-    if (polygon1_vertices[0] === polygon1_vertices[polygon1_vertices.length-1]) {
+    if (polygon1_vertices[0].isEqual(polygon1_vertices[1])) {
+      polygon1_vertices.splice(0, 1)
+    }
+    if (polygon1_vertices[polygon1_vertices.length-2].isEqual(polygon1_vertices[polygon1_vertices.length-1])) {
       polygon1_vertices.splice(-1, 1)
-    } else while (this.vertices[i] !== edge1.points[0]) {
-      polygon1_vertices.push(this.vertices[i])
+    }
+    if (polygon1_vertices[0].isEqual(polygon1_vertices[polygon1_vertices.length-1])) {
+      polygon1_vertices.splice(-1, 1)
+    }
+
+    let i = (this.vertices.indexOf(polygon1_vertices[polygon1_vertices.length-1]) + 1) % this.vertices.length
+    while (!this.vertices[i].isEqual(polygon1_vertices[0])) {
+      if (!polygon1_vertices[polygon1_vertices.length - 1].isEqual(this.vertices[i])) {
+        polygon1_vertices.push(this.vertices[i])
+      }
       i = (i + 1) % this.vertices.length
     }
 
-    let j = (this.vertices.indexOf(edge1.points[1]) + 1) % this.vertices.length
     const polygon2_vertices = [edge2.points[0], point2, point1, edge1.points[1]]
-    if (polygon2_vertices[0] === polygon2_vertices[polygon2_vertices.length-1]) {
+    if (polygon2_vertices[0].isEqual(polygon2_vertices[1])) {
+      polygon2_vertices.splice(0, 1)
+    }
+    if (polygon2_vertices[polygon2_vertices.length-2].isEqual(polygon2_vertices[polygon2_vertices.length-1])) {
       polygon2_vertices.splice(-1, 1)
-    } else while (this.vertices[j] !== edge2.points[0]) {
-      polygon2_vertices.push(this.vertices[j])
+    }
+    if (polygon2_vertices[0].isEqual(polygon2_vertices[polygon2_vertices.length-1])) {
+      polygon2_vertices.splice(-1, 1)
+    }
+
+    let j = (this.vertices.indexOf(polygon2_vertices[polygon2_vertices.length-1]) + 1) % this.vertices.length
+    while (!this.vertices[j].isEqual(polygon2_vertices[0])) {
+      if (!polygon2_vertices[polygon2_vertices.length - 1].isEqual(this.vertices[j])) {
+        polygon2_vertices.push(this.vertices[j])
+      }
       j = (j + 1) % this.vertices.length
     }
 

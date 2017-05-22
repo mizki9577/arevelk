@@ -1,5 +1,5 @@
 // @flow
-import type { Point } from './Point.js'
+import Point from './Point.js'
 
 class Edge {
   points: [Point, Point]
@@ -16,7 +16,7 @@ class Edge {
       const end_y   = Math.max(this.points[0].y, this.points[1].y)
       const x = this.points[0].x
       for (let y = begin_y; y <= end_y; ++y) {
-        result.push({ x, y })
+        result.push(new Point(x, y))
       }
       return result
     }
@@ -27,7 +27,7 @@ class Edge {
     for (let x = 0; x <= n; ++x) {
       const y = x * (this.points[0].y - this.points[1].y) / (this.points[0].x - this.points[1].x)
       if (Number.isInteger(y)) {
-        result.push({ x: x + begin_x, y: y + begin_y })
+        result.push(new Point(x + begin_x, y + begin_y))
       }
     }
     return result

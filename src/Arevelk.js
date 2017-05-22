@@ -3,6 +3,7 @@ import React from 'react'
 
 import Polygon from './Polygon.js'
 import Edge from './Edge.js'
+import Point from './Point.js'
 
 class Arevelk extends React.Component {
   state: {
@@ -21,7 +22,7 @@ class Arevelk extends React.Component {
       width: 101,
       height: 65,
       numberOfSplits: 8,
-      polygons: frame.randomSplit(8)
+      polygons: frame.randomSplit(1)
     }
   }
 
@@ -66,10 +67,10 @@ for (let x = 0; x < 101; ++x) for (let y = 0; y < 65; ++y) {
 }
 
 const frame = new Polygon([
-  { x:   0, y:  0 },
-  { x: 100, y:  0 },
-  { x: 100, y: 64 },
-  { x:   0, y: 64 },
+  new Point(  0,  0),
+  new Point(100,  0),
+  new Point(100, 64),
+  new Point(  0, 64),
 ])
 
 export default Arevelk
