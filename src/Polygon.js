@@ -21,7 +21,7 @@ class Polygon {
   }
 
   split(edge1: Edge, point1: Point, edge2: Edge, point2: Point): [Polygon, Polygon] {
-    const polygon1_vertices = [edge1.points[0], point1, point2, edge2.points[1]]
+    const polygon1_vertices = [edge1.begin, point1, point2, edge2.end]
     if (polygon1_vertices[0].isEqual(polygon1_vertices[1])) {
       polygon1_vertices.splice(0, 1)
     }
@@ -40,7 +40,7 @@ class Polygon {
       i = (i + 1) % this.vertices.length
     }
 
-    const polygon2_vertices = [edge2.points[0], point2, point1, edge1.points[1]]
+    const polygon2_vertices = [edge2.begin, point2, point1, edge1.end]
     if (polygon2_vertices[0].isEqual(polygon2_vertices[1])) {
       polygon2_vertices.splice(0, 1)
     }

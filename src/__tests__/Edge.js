@@ -53,7 +53,10 @@ test(t => {
 
 test(t => {
   const edge = new Edge(new Point(70, 3), new Point(100, 34))
-  t.deepEqual(edge.getPointsOnGrids(), edge.points)
+  t.deepEqual(edge.getPointsOnGrids(), [
+    edge.begin,
+    edge.end,
+  ])
 })
 
 // vim: set ts=2 sw=2 et:

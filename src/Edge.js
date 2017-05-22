@@ -2,30 +2,32 @@
 import Point from './Point.js'
 
 class Edge {
-  points: [Point, Point]
+  begin: Point
+  end: Point
 
-  constructor(...points: [Point, Point]) {
-    this.points = points
+  constructor(begin: Point, end: Point) {
+    this.begin = begin
+    this.end = end
   }
 
   getPointsOnGrids(): Point[] {
     const result = []
 
-    if (this.points[0].x === this.points[1].x) {
-      const begin_y = Math.min(this.points[0].y, this.points[1].y)
-      const end_y   = Math.max(this.points[0].y, this.points[1].y)
-      const x = this.points[0].x
+    if (this.begin.x === this.end.x) {
+      const begin_y = Math.min(this.begin.y, this.end.y)
+      const end_y   = Math.max(this.begin.y, this.end.y)
+      const x = this.begin.x
       for (let y = begin_y; y <= end_y; ++y) {
         result.push(new Point(x, y))
       }
       return result
     }
 
-    const { x: begin_x, y: begin_y } = this.points[0].x < this.points[1].x ? this.points[0] : this.points[1]
-    const end_x   = Math.max(this.points[0].x, this.points[1].x)
+    const { x: begin_x, y: begin_y } = this.begin.x < this.end.x ? this.begin : this.end
+    const end_x   = Math.max(this.begin.x, this.end.x)
     const n = end_x - begin_x
     for (let x = 0; x <= n; ++x) {
-      const y = x * (this.points[0].y - this.points[1].y) / (this.points[0].x - this.points[1].x)
+      const y = x * (this.begin.y - this.end.y) / (this.begin.x - this.end.x)
       if (Number.isInteger(y)) {
         result.push(new Point(x + begin_x, y + begin_y))
       }
