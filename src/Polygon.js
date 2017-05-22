@@ -8,7 +8,7 @@ class Polygon extends Array {
     super(...vertices)
   }
 
-  isEqual(other: Polygon) {
+  isEqual(other: Polygon): boolean {
     if (this.length !== other.length) return false
     const length = this.length
 
