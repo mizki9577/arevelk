@@ -10,6 +10,26 @@ class Polygon {
     this.vertices = vertices
   }
 
+  isEqual(other: Polygon) {
+    if (this.vertices.length !== other.vertices.length) return false
+    const length = this.vertices.length
+
+    for (let i = 0; i < length; ++i) {
+      let matched = true
+      for (let j = 0; j < length; ++j) {
+        if (!this.vertices[j].isEqual(other.vertices[(i+j)%length])) {
+          matched = false
+          break
+        }
+      }
+      if (matched) {
+        return true
+      }
+    }
+
+    return false
+  }
+
   getEdges(): Edge[] {
     const result = []
     const n = this.vertices.length
