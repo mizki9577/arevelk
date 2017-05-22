@@ -1,7 +1,7 @@
 // @flow
 import Point from './Point.js'
 import Edge from './Edge.js'
-import { randomChoice } from './utils.js'
+import { randomChoice, orderedRandomPull } from './utils.js'
 
 class Polygon extends Array {
   constructor(...vertices: Point[]) {
@@ -87,8 +87,7 @@ class Polygon extends Array {
       const splitting_polygon = randomChoice(polygons, true)
       const edges = splitting_polygon.getEdges()
 
-      const edge1 = randomChoice(edges, true)
-      const edge2 = randomChoice(edges, true)
+      const [edge1, edge2] = orderedRandomPull(edges, 2)
 
       const points1 = edge1.getPointsOnGrids()
       const points2 = edge2.getPointsOnGrids()
