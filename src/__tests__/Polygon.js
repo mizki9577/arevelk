@@ -74,18 +74,16 @@ test('#split', t => {
 
   const result = polygon.split(edge1, point1, edge2, point2)
 
-  t.deepEqual(
-    result[0],
-    new Polygon([
+  t.true(
+    result[0].isEqual(new Polygon([
       new Point(0, 0), new Point(8, 2), new Point(8, 4), new Point(0, 4),
-    ]),
+    ]))
   )
 
-  t.deepEqual(
-    result[1],
-    new Polygon([
+  t.true(
+    result[1].isEqual(new Polygon([
       new Point(8, 0), new Point(8, 2), new Point(0, 0),
-    ]),
+    ]))
   )
 })
 
@@ -105,18 +103,16 @@ test('#split', t => {
 
   const result = polygon.split(edge1, point1, edge2, point2)
 
-  t.deepEqual(
-    result[0],
-    new Polygon([
+  t.true(
+    result[0].isEqual(new Polygon([
       new Point(8, 0), new Point(8, 2), new Point(0, 0),
-    ]),
+    ]))
   )
 
-  t.deepEqual(
-    result[1],
-    new Polygon([
+  t.true(
+    result[1].isEqual(new Polygon([
       new Point(0, 4), new Point(0, 0), new Point(8, 2), new Point(8, 4),
-    ]),
+    ]))
   )
 })
 
