@@ -82,16 +82,25 @@ class Polygon extends Array {
     const polygons = [this]
 
     for (let _ = 0; _ < numberOfSplits; ++_) {
+      if (polygons.length === 0) break
       const splitting_polygon = randomChoice(polygons, true)
       const edges = splitting_polygon.getEdges()
 
-      const [edge1, edge2] = orderedRandomPull(edges, 2)
+      const edges_points = edges.map(e => [e, e.getPointsOnGrids()])
+                                .filter(ep => ep[1].length > 2)
 
-      const points1 = edge1.getPointsOnGrids()
-      const points2 = edge2.getPointsOnGrids()
+      if (edges_points.length < 2) {
+        --_
+        continue
+      }
 
-      const point1 = randomChoice(points1)
-      const point2 = randomChoice(points2)
+      const [ep1, ep2] = orderedRandomPull(edges_points, 2)
+
+      const [edge1, points1] = ep1
+      const [edge2, points2] = ep2
+
+      const point1 = randomChoice(points1.slice(1, -1))
+      const point2 = randomChoice(points2.slice(1, -1))
 
       polygons.push(...splitting_polygon.split(edge1, point1, edge2, point2))
     }
