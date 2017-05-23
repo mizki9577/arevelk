@@ -39,45 +39,43 @@ class Polygon extends Array {
   }
 
   split(edge1: Edge, point1: Point, edge2: Edge, point2: Point): [Polygon, Polygon] {
-    const polygon1_vertices = [edge1.begin, point1, point2, edge2.end]
-    if (polygon1_vertices[0].isEqual(polygon1_vertices[1])) {
-      polygon1_vertices.splice(0, 1)
-    }
-    if (polygon1_vertices[polygon1_vertices.length-2].isEqual(polygon1_vertices[polygon1_vertices.length-1])) {
-      polygon1_vertices.splice(-1, 1)
-    }
-    if (polygon1_vertices[0].isEqual(polygon1_vertices[polygon1_vertices.length-1])) {
-      polygon1_vertices.splice(-1, 1)
-    }
-
-    let i = (this.indexOf(polygon1_vertices[polygon1_vertices.length-1]) + 1) % this.length
-    while (!this[i].isEqual(polygon1_vertices[0])) {
-      if (!polygon1_vertices[polygon1_vertices.length - 1].isEqual(this[i])) {
-        polygon1_vertices.push(this[i])
-      }
+    const polygon1 = new Polygon(edge1.begin, point1, point2, edge2.end)
+    if (polygon1[0].isEqual(polygon1[1])) {
+      polygon1.splice(0, 1)
+    } else if (polygon1[2].isEqual(polygon1[3])) {
+      polygon1.splice(2, 1)
+    } else if (polygon1[0].isEqual(polygon1[3])) {
+      polygon1.splice(0, 1)
+    } else {
+      let i = this.findIndex(v => v.isEqual(polygon1[3]))
+      if (i === -1) throw 'something wrong'
       i = (i + 1) % this.length
-    }
 
-    const polygon2_vertices = [edge2.begin, point2, point1, edge1.end]
-    if (polygon2_vertices[0].isEqual(polygon2_vertices[1])) {
-      polygon2_vertices.splice(0, 1)
-    }
-    if (polygon2_vertices[polygon2_vertices.length-2].isEqual(polygon2_vertices[polygon2_vertices.length-1])) {
-      polygon2_vertices.splice(-1, 1)
-    }
-    if (polygon2_vertices[0].isEqual(polygon2_vertices[polygon2_vertices.length-1])) {
-      polygon2_vertices.splice(-1, 1)
-    }
-
-    let j = (this.indexOf(polygon2_vertices[polygon2_vertices.length-1]) + 1) % this.length
-    while (!this[j].isEqual(polygon2_vertices[0])) {
-      if (!polygon2_vertices[polygon2_vertices.length - 1].isEqual(this[j])) {
-        polygon2_vertices.push(this[j])
+      while (!this[i].isEqual(polygon1[0])) {
+        polygon1.push(this[i])
+        i = (i + 1) % this.length
       }
-      j = (j + 1) % this.length
     }
 
-    return [new Polygon(...polygon1_vertices), new Polygon(...polygon2_vertices)]
+    const polygon2 = new Polygon(edge2.begin, point2, point1, edge1.end)
+    if (polygon2[0].isEqual(polygon2[1])) {
+      polygon2.splice(0, 1)
+    } else if (polygon2[2].isEqual(polygon2[3])) {
+      polygon2.splice(2, 1)
+    } else if (polygon2[0].isEqual(polygon2[3])) {
+      polygon2.splice(0, 1)
+    } else {
+      let i = this.findIndex(v => v.isEqual(polygon2[3]))
+      if (i === -1) throw 'something wrong'
+      i = (i + 1) % this.length
+
+      while (!this[i].isEqual(polygon2[0])) {
+        polygon2.push(this[i])
+        i = (i + 1) % this.length
+      }
+    }
+
+    return [polygon1, polygon2]
   }
 
   randomSplit(numberOfSplits: number): Polygon[] {
