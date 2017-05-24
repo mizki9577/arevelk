@@ -10,6 +10,10 @@ class Edge {
     this.end = end
   }
 
+  isEqual(other: Edge): boolean {
+    return this.begin.isEqual(other.begin) && this.end.isEqual(other.end)
+  }
+
   getPointsOnGrids(): Point[] {
     const result = []
 

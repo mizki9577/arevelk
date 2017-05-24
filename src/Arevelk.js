@@ -4,6 +4,7 @@ import React from 'react'
 import Polygon from './Polygon.js'
 import Edge from './Edge.js'
 import Point from './Point.js'
+import { randomDelaunayTriangulation } from './utils.js'
 
 class Arevelk extends React.Component {
   state: {
@@ -11,7 +12,7 @@ class Arevelk extends React.Component {
     width: number,
     height: number,
     numberOfSplits: number,
-    polygons: Polygon[],
+    polygons: $Subtype<Polygon>[],
   }
 
   constructor() {
@@ -22,7 +23,7 @@ class Arevelk extends React.Component {
       width: 101,
       height: 65,
       numberOfSplits: 8,
-      polygons: frame.randomSplit(1)
+      polygons: randomDelaunayTriangulation(frame, 1)
     }
   }
 
@@ -31,7 +32,7 @@ class Arevelk extends React.Component {
   }
 
   handleReset() {
-    this.setState({ polygons: frame.randomSplit(this.state.numberOfSplits) })
+    this.setState({ polygons: randomDelaunayTriangulation(frame, this.state.numberOfSplits) })
   }
 
   handleNumberOfPointsChange(ev: SyntheticInputEvent) {

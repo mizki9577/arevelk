@@ -1,4 +1,6 @@
 // @flow
+import math from 'mathjs'
+
 import Point from './Point.js'
 import Edge from './Edge.js'
 
@@ -24,6 +26,13 @@ class Polygon extends Array {
       }
     }
 
+    return false
+  }
+
+  hasEdge(edge1: Edge): boolean {
+    for (const edge2 of this.getEdges()) {
+      if (edge1.isEqual(edge2)) return true
+    }
     return false
   }
 
