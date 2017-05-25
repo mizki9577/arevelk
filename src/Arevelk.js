@@ -22,8 +22,8 @@ class Arevelk extends React.Component {
       isRunning: false,
       width: 101,
       height: 65,
-      numberOfSplits: 8,
-      polygons: randomDelaunayTriangulation(frame, 1)
+      numberOfSplits: 0,
+      polygons: randomDelaunayTriangulation(frame, 0)
     }
   }
 
