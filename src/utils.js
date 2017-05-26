@@ -42,8 +42,8 @@ const createSuperTriangle = (points: Point[]) => {
   return new Triangle(p1, p2, p3)
 }
 
-export const isUnique = (array: any[], index: number, fn: (any, any) => boolean): boolean => (
-  array.slice(0, index).findIndex(v => fn(v, array[index])) === -1 && array.slice(index + 1).findIndex(v => fn(v, array[index])) === -1
+export const isUnique = (array: any[], i: number, compare: (any, any) => boolean): boolean => (
+  !array.some((v, j) => j === i ? false : compare(v, array[i]))
 )
 
 export const partition = (array: any[], fn: (any) => any): { [any]: any[] } => {
