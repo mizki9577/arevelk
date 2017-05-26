@@ -15,7 +15,7 @@ class Arevelk extends React.Component {
     isRunning: boolean,
     width: number,
     height: number,
-    numberOfSplits: number,
+    numberOfPoints: number,
     polygons: $Subtype<Polygon>[],
   }
 
@@ -26,7 +26,7 @@ class Arevelk extends React.Component {
       isRunning: false,
       width: WIDTH,
       height: HEIGHT,
-      numberOfSplits: 0,
+      numberOfPoints: 0,
       polygons: randomDelaunayTriangulation(frame, 0),
     }
   }
@@ -36,11 +36,11 @@ class Arevelk extends React.Component {
   }
 
   handleReset() {
-    this.setState({ polygons: randomDelaunayTriangulation(frame, this.state.numberOfSplits) })
+    this.setState({ polygons: randomDelaunayTriangulation(frame, this.state.numberOfPoints) })
   }
 
   handleNumberOfPointsChange(ev: SyntheticInputEvent) {
-    this.setState({ numberOfSplits: Number(ev.target.value) })
+    this.setState({ numberOfPoints: Number(ev.target.value) })
   }
 
   render() {
@@ -57,7 +57,7 @@ class Arevelk extends React.Component {
           </div>
 
           <div className="row">
-            <label>number of points: <input type="number" min={ 0 } max={ 1024 } value={ this.state.numberOfSplits } step={ 1 } onChange={ ev => this.handleNumberOfPointsChange(ev) } /></label>
+            <label>number of points: <input type="number" min={ 0 } max={ 1024 } value={ this.state.numberOfPoints } step={ 1 } onChange={ ev => this.handleNumberOfPointsChange(ev) } /></label>
             <button onClick={ () => this.handleReset() }>reset</button>
           </div>
         </div>
