@@ -5,8 +5,11 @@ import Polygon from './Polygon.js'
 import Point from './Point.js'
 
 class Triangle extends Polygon {
-  constructor(point1: Point, point2: Point, point3: Point) {
-    super(point1, point2, point3)
+  constructor(...points: [Point, Point, Point]) {
+    const sum = points.reduce((prev, next) => new Point(prev.x + next.x, prev.y + next.y))
+    const c = new Point(sum.x / points.length, sum.y / points.length)
+    const sorted_points = Array.from(points).sort((a, b) => Math.atan2(a.y - c.y, a.x - c.x) - Math.atan2(b.y - c.y, b.x - c.x))
+    super(...sorted_points)
   }
 
   circumcircleContainsPoint(point: Point): boolean {
