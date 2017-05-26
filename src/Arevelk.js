@@ -26,8 +26,8 @@ class Arevelk extends React.Component {
       isRunning: false,
       width: WIDTH,
       height: HEIGHT,
-      numberOfPoints: 0,
-      polygons: randomDelaunayTriangulation(frame, 0),
+      numberOfPoints: 64,
+      polygons: randomDelaunayTriangulation(0, WIDTH, 0, HEIGHT, 64),
     }
   }
 
@@ -36,7 +36,7 @@ class Arevelk extends React.Component {
   }
 
   handleReset() {
-    this.setState({ polygons: randomDelaunayTriangulation(frame, this.state.numberOfPoints) })
+    this.setState({ polygons: randomDelaunayTriangulation(0, this.state.width, 0, this.state.height, this.state.numberOfPoints) })
   }
 
   handleNumberOfPointsChange(ev: SyntheticInputEvent) {
@@ -65,14 +65,6 @@ class Arevelk extends React.Component {
     )
   }
 }
-
-const frame = new Polygon(
-  new Point(        0,          0),
-  new Point(WIDTH - 1,          0),
-  new Point(WIDTH - 1, HEIGHT - 1),
-  new Point(        0, HEIGHT - 1),
-)
-
 
 export default Arevelk
 

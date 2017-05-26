@@ -59,12 +59,8 @@ export const partition = <K, V>(array: V[], fn: (V) => K): { [K]: V[] } => {
   return map
 }
 
-export const randomDelaunayTriangulation = (polygon: Polygon, numberOfSplits: number): Triangle[] => {
-  const points = Array.from(polygon)
-  const min_x = math.min(polygon.map(v => v.x))
-  const max_x = math.max(polygon.map(v => v.x))
-  const min_y = math.min(polygon.map(v => v.y))
-  const max_y = math.max(polygon.map(v => v.y))
+export const randomDelaunayTriangulation = (min_x: number, max_x: number, min_y: number, max_y: number, numberOfSplits: number): Triangle[] => {
+  const points = []
 
   for (let i = 0; i < numberOfSplits; ++i) {
     points.push(new Point(
