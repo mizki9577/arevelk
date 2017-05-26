@@ -11,13 +11,11 @@ export const delaunayTriangulate = (points: Point[]) => {
   triangles.push(super_triangle)
 
   for (let point of points) {
-    const bad_triangles = triangles.filter(t => t.circumcircleContainsPoint(point))
+    const { true: bad_triangles = [], false: good_triangles = [] } = partition(triangles, t => t.circumcircleContainsPoint(point))
 
     const polygon = bad_triangles.map(t => t.getEdges())
                                  .reduce((prev, next) => prev.concat(next))
                                  .filter((_, i, array) => isUnique(array, i, (e1, e2) => e1.isEqual(e2)))
-
-    const good_triangles = triangles.filter(t => !t.circumcircleContainsPoint(point))
 
     const new_triangles = polygon.map(e => new Triangle(point, e.begin, e.end))
 
@@ -47,6 +45,18 @@ const createSuperTriangle = (points: Point[]) => {
 export const isUnique = (array: any[], index: number, fn: (any, any) => boolean): boolean => (
   array.slice(0, index).findIndex(v => fn(v, array[index])) === -1 && array.slice(index + 1).findIndex(v => fn(v, array[index])) === -1
 )
+
+export const partition = (array: any[], fn: (any) => any): { [any]: any[] } => {
+  const map = {}
+  for (const value of array) {
+    const key = fn(value)
+    if (typeof map[key] === 'undefined') {
+      map[key] = []
+    }
+    map[fn(value)].push(value)
+  }
+  return map
+}
 
 export const randomDelaunayTriangulation = (polygon: Polygon, numberOfSplits: number): Triangle[] => {
   const points = Array.from(polygon)
