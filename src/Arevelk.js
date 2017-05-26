@@ -6,6 +6,9 @@ import Edge from './Edge.js'
 import Point from './Point.js'
 import { randomDelaunayTriangulation } from './utils.js'
 
+const WIDTH = 101
+const HEIGHT = 65
+
 class Arevelk extends React.Component {
   state: {
     isRunning: boolean,
@@ -20,10 +23,10 @@ class Arevelk extends React.Component {
 
     this.state = {
       isRunning: false,
-      width: 101,
-      height: 65,
+      width: WIDTH,
+      height: HEIGHT,
       numberOfSplits: 0,
-      polygons: randomDelaunayTriangulation(frame, 0)
+      polygons: randomDelaunayTriangulation(frame, 0),
     }
   }
 
@@ -42,7 +45,7 @@ class Arevelk extends React.Component {
   render() {
     return (
       <div>
-        <svg width={ 800 } height={ 600 } viewBox={ `-1 -1 103 67` }>
+        <svg width={ 1200 } height={ 800 } viewBox={ `${ -this.state.width / 2 } ${ -this.state.height / 2 } ${ this.state.width * 2 } ${ this.state.height * 2 }` }>
           <g>{ grid }</g>
           { this.state.polygons.map((p, i) => (
             <g key={ i }>
@@ -73,11 +76,12 @@ for (let x = 0; x < 101; ++x) for (let y = 0; y < 65; ++y) {
 }
 
 const frame = new Polygon(
-  new Point(  0,  0),
-  new Point(100,  0),
-  new Point(100, 64),
-  new Point(  0, 64),
+  new Point(        0,          0),
+  new Point(WIDTH - 1,          0),
+  new Point(WIDTH - 1, HEIGHT - 1),
+  new Point(        0, HEIGHT - 1),
 )
+
 
 export default Arevelk
 
