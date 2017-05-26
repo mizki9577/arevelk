@@ -11,7 +11,7 @@ export const delaunayTriangulate = (points: Point[]) => {
   triangles.push(super_triangle)
 
   for (let point of points) {
-    const { true: bad_triangles = [], false: good_triangles = [] } = partition(triangles, t => t.circumcircleContainsPoint(point))
+    const { [true]: bad_triangles = [], [false]: good_triangles = [] } = partition(triangles, t => t.circumcircleContainsPoint(point))
     if (bad_triangles.length === 0) continue
 
     const new_triangles = bad_triangles
@@ -43,12 +43,12 @@ const createSuperTriangle = (points: Point[]) => {
   return new Triangle(p1, p2, p3)
 }
 
-export const isUnique = (array: any[], i: number, compare: (any, any) => boolean): boolean => (
+export const isUnique = <T>(array: T[], i: number, compare: (T, T) => boolean): boolean => (
   !array.some((v, j) => j === i ? false : compare(v, array[i]))
 )
 
-export const partition = (array: any[], fn: (any) => any): { [any]: any[] } => {
-  const map = {}
+export const partition = <K, V>(array: V[], fn: (V) => K): { [K]: V[] } => {
+  const map: { [K]: V[] } = {}
   for (const value of array) {
     const key = fn(value)
     if (typeof map[key] === 'undefined') {
