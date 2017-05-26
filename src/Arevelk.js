@@ -5,6 +5,7 @@ import Polygon from './Polygon.js'
 import Edge from './Edge.js'
 import Point from './Point.js'
 import { randomDelaunayTriangulation } from './utils.js'
+import Grid from './Grid.js'
 
 const WIDTH = 101
 const HEIGHT = 65
@@ -46,7 +47,7 @@ class Arevelk extends React.Component {
     return (
       <div>
         <svg width={ 1200 } height={ 800 } viewBox={ `${ -this.state.width / 2 } ${ -this.state.height / 2 } ${ this.state.width * 2 } ${ this.state.height * 2 }` }>
-          <g>{ grid }</g>
+          <Grid className="grid" x={ 0 } y={ 0 } width={ this.state.width } height={ this.state.height } />
           { this.state.polygons.map((p, i) => <polygon key={ i } points={ p.map(({ x, y }) => `${ x },${ y }`).join(' ') } />) }
         </svg>
 
@@ -63,11 +64,6 @@ class Arevelk extends React.Component {
       </div>
     )
   }
-}
-
-const grid = []
-for (let x = 0; x < 101; ++x) for (let y = 0; y < 65; ++y) {
-  grid.push(<circle className="grid" key={ `grid${x},${y}` } cx={ x } cy={ y } r={ 0.1 } />)
 }
 
 const frame = new Polygon(
