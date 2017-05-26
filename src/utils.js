@@ -44,7 +44,7 @@ const createSuperTriangle = (points: Point[]) => {
   return new Triangle(p1, p2, p3)
 }
 
-const isUnique = (array: any[], index: number, fn: (any, any) => boolean): boolean => (
+export const isUnique = (array: any[], index: number, fn: (any, any) => boolean): boolean => (
   array.slice(0, index).findIndex(v => fn(v, array[index])) === -1 && array.slice(index + 1).findIndex(v => fn(v, array[index])) === -1
 )
 
