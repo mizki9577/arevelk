@@ -12,11 +12,12 @@ export const delaunayTriangulate = (points: Point[]) => {
 
   for (let point of points) {
     const { true: bad_triangles = [], false: good_triangles = [] } = partition(triangles, t => t.circumcircleContainsPoint(point))
+    if (bad_triangles.length === 0) continue
 
     const new_triangles = bad_triangles
       .map(t => t.getEdges())
       .reduce((prev, next) => prev.concat(next))
-      .filter((_, i, array) => isUnique(array, i, (e1, e2) => e1.isEqual(e2)))
+      .filter((_, i, array) => isUnique(array, i, (e1, e2) => e1.isWeakEqual(e2)))
       .map(e => new Triangle(point, e.begin, e.end))
 
     triangles = [...good_triangles, ...new_triangles]
