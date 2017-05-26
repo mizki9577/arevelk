@@ -47,12 +47,7 @@ class Arevelk extends React.Component {
       <div>
         <svg width={ 1200 } height={ 800 } viewBox={ `${ -this.state.width / 2 } ${ -this.state.height / 2 } ${ this.state.width * 2 } ${ this.state.height * 2 }` }>
           <g>{ grid }</g>
-          { this.state.polygons.map((p, i) => (
-            <g key={ i }>
-              <polygon points={ p.map(({ x, y }) => `${ x },${ y }`).join(' ') } />
-              { p.map(({ x, y }, j) => <circle key={ j } cx={ x } cy={ y } r={ 0.5 } />) }
-            </g>
-          )) }
+          { this.state.polygons.map((p, i) => <polygon key={ i } points={ p.map(({ x, y }) => `${ x },${ y }`).join(' ') } />) }
         </svg>
 
         <div className="column">
