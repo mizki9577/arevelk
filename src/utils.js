@@ -36,9 +36,9 @@ const createSuperTriangle = (points: Point[]) => {
   const min_y = math.min(points.map(p => p.y))
 
   // create a isosceles right triangle
-  const p1 = new Point(min_x - 1    , min_y - 1)      // bottom left
-  const p2 = new Point(max_x * 2 + 2, min_y - 1)      // bottom right
-  const p3 = new Point(min_x - 1    , max_y * 2 + 2)  // top left
+  const p1 = new Point(min_x - 4    , min_y - 4)      // bottom left
+  const p2 = new Point(max_x * 2 + 8, min_y - 4)      // bottom right
+  const p3 = new Point(min_x - 4    , max_y * 2 + 8)  // top left
   return new Triangle(p1, p2, p3)
 }
 
