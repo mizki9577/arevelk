@@ -1086,6 +1086,10 @@ detect-indent@^4.0.0:
   dependencies:
     repeating "^2.0.0"
 
+detect-indent@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-5.0.0.tgz#3871cc0a6a002e8c3e5b3cf7f336264675f06b9d"
+
 diff-match-patch@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/diff-match-patch/-/diff-match-patch-1.0.0.tgz#1cc3c83a490d67f95d91e39f6ad1f2e086b63048"
@@ -1291,9 +1295,9 @@ find-up@^2.0.0:
   dependencies:
     locate-path "^2.0.0"
 
-flow-bin@^0.46.0:
-  version "0.46.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.46.0.tgz#06ad7fe19dddb1042264438064a2a32fee12b872"
+flow-bin@^0.47.0:
+  version "0.47.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.47.0.tgz#a2a08ab3e0d1f1cb57d17e27b30b118b62fda367"
 
 fn-name@^2.0.0:
   version "2.0.1"
@@ -2041,9 +2045,9 @@ matcher@^0.1.1:
   dependencies:
     escape-string-regexp "^1.0.4"
 
-mathjs@^3.13.1:
-  version "3.13.1"
-  resolved "https://registry.yarnpkg.com/mathjs/-/mathjs-3.13.1.tgz#591ad98c80e87c5d5997eb626137b1efad44ae71"
+mathjs@^3.13.2:
+  version "3.13.2"
+  resolved "https://registry.yarnpkg.com/mathjs/-/mathjs-3.13.2.tgz#4cfa5ce2d008af5a18b19a27f11c98fbc6c6c041"
   dependencies:
     complex.js "2.0.1"
     decimal.js "7.1.1"
@@ -3247,9 +3251,10 @@ write-file-atomic@^2.0.0:
     slide "^1.1.5"
 
 write-json-file@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/write-json-file/-/write-json-file-2.1.0.tgz#ba1cf3ac7ee89db26c3d528986e48421389046b7"
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/write-json-file/-/write-json-file-2.2.0.tgz#51862506bbb3b619eefab7859f1fd6c6d0530876"
   dependencies:
+    detect-indent "^5.0.0"
     graceful-fs "^4.1.2"
     make-dir "^1.0.0"
     pify "^2.0.0"
