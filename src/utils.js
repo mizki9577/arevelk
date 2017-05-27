@@ -6,13 +6,11 @@ import Triangle from './Triangle.js'
 import Point from './Point.js'
 
 export const delaunayTriangulate = (points: Point[]) => {
-  let triangles = []
   const super_triangle = createSuperTriangle(points)
-  triangles.push(super_triangle)
 
-  for (let point of points) {
+  return points.reduce((triangles, point) => {
     const { [true]: bad_triangles = [], [false]: good_triangles = [] } = partition(triangles, t => t.circumcircleContainsPoint(point))
-    if (bad_triangles.length === 0) continue
+    if (bad_triangles.length === 0) return triangles
 
     const new_triangles = bad_triangles
       .map(t => t.getEdges())
@@ -20,14 +18,9 @@ export const delaunayTriangulate = (points: Point[]) => {
       .filter((_, i, array) => isUnique(array, i, (e1, e2) => e1.isWeakEqual(e2)))
       .map(e => new Triangle(point, e.begin, e.end))
 
-    triangles = [...good_triangles, ...new_triangles]
-  }
-
-  for (const super_vertex of super_triangle) {
-    triangles = triangles.filter(t => t.findIndex(v => v.isEqual(super_vertex)) === -1)
-  }
-
-  return triangles
+    return [...good_triangles, ...new_triangles]
+  }, [super_triangle])
+    .filter(t => t.findIndex(v => super_triangle.some(super_vertex => v.isEqual(super_vertex))) === -1)
 }
 
 const createSuperTriangle = (points: Point[]) => {
