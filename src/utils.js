@@ -71,4 +71,31 @@ export const randomDelaunayTriangulation = (min_x: number, max_x: number, min_y:
   return delaunayTriangulate(points)
 }
 
+export const getConvexHull = (triangles: Triangle[]): Polygon => {
+  const outer_edges = triangles
+    .map(t => t.getEdges())
+    .reduce((prev, next) => prev.concat(next))
+    .filter((_, i, array) => isUnique(array, i, (e1, e2) => e1.isWeakEqual(e2)))
+
+  const vertices = [outer_edges[0].begin, outer_edges[0].end]
+  outer_edges.shift()
+  while (outer_edges.length > 0) {
+    for (let i = 0; i < outer_edges.length; ++i) {
+      const edge = outer_edges[i]
+
+      if (vertices[vertices.length-1].isEqual(edge.begin)) {
+        vertices.push(edge.end)
+        outer_edges.splice(i, 1)
+        break
+      } else if (vertices[vertices.length-1].isEqual(edge.end)) {
+        vertices.push(edge.begin)
+        outer_edges.splice(i, 1)
+        break
+      }
+    }
+  }
+
+  return new Polygon(...vertices)
+}
+
 // vim: set ts=2 sw=2 et:

@@ -4,7 +4,7 @@ import React from 'react'
 import Polygon from './Polygon.js'
 import Edge from './Edge.js'
 import Point from './Point.js'
-import { randomDelaunayTriangulation } from './utils.js'
+import { randomDelaunayTriangulation, getConvexHull } from './utils.js'
 import Grid from './Grid.js'
 
 const WIDTH = 101
@@ -17,17 +17,22 @@ class Arevelk extends React.Component {
     height: number,
     numberOfPoints: number,
     polygons: $Subtype<Polygon>[],
+    hull: Polygon,
   }
 
   constructor() {
     super()
+
+    const polygons = randomDelaunayTriangulation(0, WIDTH, 0, HEIGHT, 64)
+    const hull = getConvexHull(polygons)
 
     this.state = {
       isRunning: false,
       width: WIDTH,
       height: HEIGHT,
       numberOfPoints: 64,
-      polygons: randomDelaunayTriangulation(0, WIDTH, 0, HEIGHT, 64),
+      polygons,
+      hull,
     }
   }
 
@@ -36,7 +41,11 @@ class Arevelk extends React.Component {
   }
 
   handleReset() {
-    this.setState({ polygons: randomDelaunayTriangulation(0, this.state.width, 0, this.state.height, this.state.numberOfPoints) })
+    const polygons = randomDelaunayTriangulation(0, this.state.width, 0, this.state.height, this.state.numberOfPoints)
+    this.setState({
+      polygons,
+      hull: getConvexHull(polygons),
+    })
   }
 
   handleNumberOfPointsChange(ev: SyntheticInputEvent) {
@@ -49,6 +58,7 @@ class Arevelk extends React.Component {
         <svg width={ 1200 } height={ 800 } viewBox={ `${ -this.state.width / 2 } ${ -this.state.height / 2 } ${ this.state.width * 2 } ${ this.state.height * 2 }` }>
           <Grid className="grid" x={ 0 } y={ 0 } width={ this.state.width } height={ this.state.height } />
           { this.state.polygons.map((p, i) => <polygon key={ i } points={ p.map(({ x, y }) => `${ x },${ y }`).join(' ') } />) }
+          <polygon className="hull" points={ this.state.hull.map(({ x, y }) => `${ x },${ y }`).join(' ') } />
         </svg>
 
         <div className="column">

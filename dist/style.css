@@ -32,4 +32,9 @@ polygon {
     fill: gray;
 }
 
+.hull {
+    stroke: blue;
+    stroke-width: 0.25;
+}
+
 /* vim: set ts=4 sw=4 et: */
