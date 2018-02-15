@@ -8,7 +8,7 @@
     "build": "rollup -c",
     "flow": "flow"
   },
-  "author": "Mizki SUZUMORI <mizki9577@gmail.com>",
+  "author": "Mizki SUZUMORI <suzumorimizuki@gmail.com>",
   "license": "BSD-2-Clause",
   "dependencies": {
     "mathjs": "^3.13.2",
